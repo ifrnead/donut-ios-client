@@ -12,9 +12,12 @@
 		9D5D4D5A1EE76A34008CC840 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9D5D4D581EE76A34008CC840 /* Model.xcdatamodeld */; };
 		9D5D4D5C1EE76A34008CC840 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D5D4D5B1EE76A34008CC840 /* Assets.xcassets */; };
 		9D5D4D5F1EE76A34008CC840 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9D5D4D5D1EE76A34008CC840 /* LaunchScreen.storyboard */; };
+		C9D705E053A5E363A70C4424 /* Pods_Donut_Client.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF593329A2B38208FB4230BE /* Pods_Donut_Client.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		511DBA65CCC59918349BFDDC /* Pods-Donut Client.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Donut Client.release.xcconfig"; path = "Pods/Target Support Files/Pods-Donut Client/Pods-Donut Client.release.xcconfig"; sourceTree = "<group>"; };
+		844088FF7DE92E41C5557091 /* Pods-Donut Client.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Donut Client.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Donut Client/Pods-Donut Client.debug.xcconfig"; sourceTree = "<group>"; };
 		9D5D4D4E1EE76A34008CC840 /* Donut Client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Donut Client.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D5D4D511EE76A34008CC840 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9D5D4D561EE76A34008CC840 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -22,6 +25,7 @@
 		9D5D4D5B1EE76A34008CC840 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9D5D4D5E1EE76A34008CC840 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9D5D4D601EE76A34008CC840 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AF593329A2B38208FB4230BE /* Pods_Donut_Client.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Donut_Client.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +33,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9D705E053A5E363A70C4424 /* Pods_Donut_Client.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		23A1F648BF8833925A219C72 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AF593329A2B38208FB4230BE /* Pods_Donut_Client.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		47AFE1D91EC8034A3EEF6901 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				844088FF7DE92E41C5557091 /* Pods-Donut Client.debug.xcconfig */,
+				511DBA65CCC59918349BFDDC /* Pods-Donut Client.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		9D5D4D451EE76A34008CC840 = {
 			isa = PBXGroup;
 			children = (
 				9D5D4D501EE76A34008CC840 /* Donut Client */,
 				9D5D4D4F1EE76A34008CC840 /* Products */,
+				47AFE1D91EC8034A3EEF6901 /* Pods */,
+				23A1F648BF8833925A219C72 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -79,9 +103,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9D5D4D631EE76A34008CC840 /* Build configuration list for PBXNativeTarget "Donut Client" */;
 			buildPhases = (
+				8C96812750C7D59A8375B662 /* [CP] Check Pods Manifest.lock */,
 				9D5D4D4A1EE76A34008CC840 /* Sources */,
 				9D5D4D4B1EE76A34008CC840 /* Frameworks */,
 				9D5D4D4C1EE76A34008CC840 /* Resources */,
+				0CDF70283420732A7B253440 /* [CP] Embed Pods Frameworks */,
+				018B21600343A12839A6820E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -138,6 +165,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		018B21600343A12839A6820E /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Donut Client/Pods-Donut Client-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		0CDF70283420732A7B253440 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Donut Client/Pods-Donut Client-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8C96812750C7D59A8375B662 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		9D5D4D4A1EE76A34008CC840 /* Sources */ = {
@@ -266,6 +341,7 @@
 		};
 		9D5D4D641EE76A34008CC840 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 844088FF7DE92E41C5557091 /* Pods-Donut Client.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "Donut Client/Info.plist";
@@ -278,6 +354,7 @@
 		};
 		9D5D4D651EE76A34008CC840 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 511DBA65CCC59918349BFDDC /* Pods-Donut Client.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "Donut Client/Info.plist";

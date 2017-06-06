@@ -1,0 +1,6 @@
+framework module Pods_Donut_Client {
+  umbrella header "Pods-Donut Client-umbrella.h"
+
+  export *
+  module * { export * }
+}
