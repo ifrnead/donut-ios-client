@@ -8,9 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		9D5D4D521EE76A34008CC840 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5D4D511EE76A34008CC840 /* AppDelegate.swift */; };
-		9D5D4D541EE76A34008CC840 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5D4D531EE76A34008CC840 /* ViewController.swift */; };
 		9D5D4D571EE76A34008CC840 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9D5D4D551EE76A34008CC840 /* Main.storyboard */; };
-		9D5D4D5A1EE76A34008CC840 /* Donut_Client.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9D5D4D581EE76A34008CC840 /* Donut_Client.xcdatamodeld */; };
+		9D5D4D5A1EE76A34008CC840 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9D5D4D581EE76A34008CC840 /* Model.xcdatamodeld */; };
 		9D5D4D5C1EE76A34008CC840 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D5D4D5B1EE76A34008CC840 /* Assets.xcassets */; };
 		9D5D4D5F1EE76A34008CC840 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9D5D4D5D1EE76A34008CC840 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -18,9 +17,8 @@
 /* Begin PBXFileReference section */
 		9D5D4D4E1EE76A34008CC840 /* Donut Client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Donut Client.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D5D4D511EE76A34008CC840 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		9D5D4D531EE76A34008CC840 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		9D5D4D561EE76A34008CC840 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		9D5D4D591EE76A34008CC840 /* Donut_Client.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Donut_Client.xcdatamodel; sourceTree = "<group>"; };
+		9D5D4D591EE76A34008CC840 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		9D5D4D5B1EE76A34008CC840 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9D5D4D5E1EE76A34008CC840 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9D5D4D601EE76A34008CC840 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -56,15 +54,22 @@
 		9D5D4D501EE76A34008CC840 /* Donut Client */ = {
 			isa = PBXGroup;
 			children = (
-				9D5D4D511EE76A34008CC840 /* AppDelegate.swift */,
-				9D5D4D531EE76A34008CC840 /* ViewController.swift */,
 				9D5D4D551EE76A34008CC840 /* Main.storyboard */,
+				9D5D4D581EE76A34008CC840 /* Model.xcdatamodeld */,
+				9D5D4D661EE76A5A008CC840 /* Supporting Files */,
+			);
+			path = "Donut Client";
+			sourceTree = "<group>";
+		};
+		9D5D4D661EE76A5A008CC840 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				9D5D4D511EE76A34008CC840 /* AppDelegate.swift */,
 				9D5D4D5B1EE76A34008CC840 /* Assets.xcassets */,
 				9D5D4D5D1EE76A34008CC840 /* LaunchScreen.storyboard */,
 				9D5D4D601EE76A34008CC840 /* Info.plist */,
-				9D5D4D581EE76A34008CC840 /* Donut_Client.xcdatamodeld */,
 			);
-			path = "Donut Client";
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -139,8 +144,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9D5D4D541EE76A34008CC840 /* ViewController.swift in Sources */,
-				9D5D4D5A1EE76A34008CC840 /* Donut_Client.xcdatamodeld in Sources */,
+				9D5D4D5A1EE76A34008CC840 /* Model.xcdatamodeld in Sources */,
 				9D5D4D521EE76A34008CC840 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -307,13 +311,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		9D5D4D581EE76A34008CC840 /* Donut_Client.xcdatamodeld */ = {
+		9D5D4D581EE76A34008CC840 /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				9D5D4D591EE76A34008CC840 /* Donut_Client.xcdatamodel */,
+				9D5D4D591EE76A34008CC840 /* Model.xcdatamodel */,
 			);
-			currentVersion = 9D5D4D591EE76A34008CC840 /* Donut_Client.xcdatamodel */;
-			path = Donut_Client.xcdatamodeld;
+			currentVersion = 9D5D4D591EE76A34008CC840 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
