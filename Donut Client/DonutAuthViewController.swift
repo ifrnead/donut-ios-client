@@ -8,24 +8,31 @@
 
 import UIKit
 
-class DonutAuthViewController: UITableViewController, UITextViewDelegate {
+class DonutAuthViewController: UITableViewController, UITextFieldDelegate {
 
     @IBOutlet weak var usernameTextField: UITextField!
     
     @IBOutlet weak var passwordTextField: UITextField!
     
     @IBAction func login(_ sender: UIButton) {
-        resignFirstResponder()
+        usernameTextField.resignFirstResponder()
+        passwordTextField.resignFirstResponder()
+        
+        self.presentingViewController?.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func forgot(_ sender: UIButton) {
-        resignFirstResponder()
+        usernameTextField.resignFirstResponder()
+        passwordTextField.resignFirstResponder()
+        
+        self.presentingViewController?.dismiss(animated: true, completion: nil)
     }
     
-    // MARK: UITextViewDelegate
+    // MARK: UITextFieldDelegate
     
-    func textViewDidEndEditing(_ textView: UITextView) {
-        textView.resignFirstResponder()
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
     
 }
