@@ -1,11 +1,155 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="qed-W2-mdt">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <scenes/>
+    <scenes>
+        <!--Donut Auth View Controller-->
+        <scene sceneID="WjA-YJ-tMJ">
+            <objects>
+                <tableViewController id="qed-W2-mdt" customClass="DonutAuthViewController" customModule="Donut_Client" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="3pn-BS-Fyi">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <sections>
+                            <tableViewSection id="SVO-bT-ifT">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="117" id="Fr5-Fd-k30">
+                                        <rect key="frame" x="0.0" y="35" width="375" height="117"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Fr5-Fd-k30" id="uwC-V5-mww">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="117"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Donut Client Login" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YOc-PB-FfL">
+                                                    <rect key="frame" x="35.5" y="34.5" width="304" height="48"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="thin" pointSize="40"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="YOc-PB-FfL" firstAttribute="centerX" secondItem="uwC-V5-mww" secondAttribute="centerX" id="V3a-60-99R"/>
+                                                <constraint firstItem="YOc-PB-FfL" firstAttribute="centerY" secondItem="uwC-V5-mww" secondAttribute="centerY" id="ah6-c8-90r"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="kz1-47-4sj">
+                                        <rect key="frame" x="0.0" y="152" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kz1-47-4sj" id="YJT-Vh-sh8">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Username" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zUH-VT-DHn">
+                                                    <rect key="frame" x="8" y="7.5" width="359" height="29"/>
+                                                    <nil key="textColor"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="24"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="qed-W2-mdt" id="uae-Vi-PET"/>
+                                                    </connections>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="zUH-VT-DHn" firstAttribute="leading" secondItem="YJT-Vh-sh8" secondAttribute="leadingMargin" id="NP9-Ee-R9P"/>
+                                                <constraint firstItem="zUH-VT-DHn" firstAttribute="centerY" secondItem="YJT-Vh-sh8" secondAttribute="centerY" id="PlB-Lk-4DR"/>
+                                                <constraint firstItem="zUH-VT-DHn" firstAttribute="centerX" secondItem="YJT-Vh-sh8" secondAttribute="centerX" id="hJd-hz-tyA"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="zUH-VT-DHn" secondAttribute="trailing" id="sJE-Yl-z1a"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="PYr-oZ-2wV">
+                                        <rect key="frame" x="0.0" y="196" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PYr-oZ-2wV" id="LnE-u0-Hpe">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QeZ-sH-pAo">
+                                                    <rect key="frame" x="8" y="7.5" width="359" height="29"/>
+                                                    <nil key="textColor"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="24"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="qed-W2-mdt" id="kZK-a9-eNL"/>
+                                                    </connections>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="QeZ-sH-pAo" firstAttribute="centerY" secondItem="LnE-u0-Hpe" secondAttribute="centerY" id="4HT-MI-rD4"/>
+                                                <constraint firstItem="QeZ-sH-pAo" firstAttribute="centerX" secondItem="LnE-u0-Hpe" secondAttribute="centerX" id="ERZ-Hb-8M0"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="QeZ-sH-pAo" secondAttribute="trailing" id="El4-QV-afW"/>
+                                                <constraint firstItem="QeZ-sH-pAo" firstAttribute="leading" secondItem="LnE-u0-Hpe" secondAttribute="leadingMargin" id="ods-5f-E3h"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="70" id="nSH-qE-2RZ">
+                                        <rect key="frame" x="0.0" y="240" width="375" height="70"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nSH-qE-2RZ" id="czq-P4-V5u">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TPB-5t-ApO">
+                                                    <rect key="frame" x="158" y="14.5" width="59" height="41"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                                    <state key="normal" title="Login"/>
+                                                    <connections>
+                                                        <action selector="login:" destination="qed-W2-mdt" eventType="touchUpInside" id="CKg-1f-reQ"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="TPB-5t-ApO" firstAttribute="centerX" secondItem="czq-P4-V5u" secondAttribute="centerX" id="8Za-Da-E0K"/>
+                                                <constraint firstItem="TPB-5t-ApO" firstAttribute="centerY" secondItem="czq-P4-V5u" secondAttribute="centerY" id="YYw-Ed-VDo"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="FBf-nO-P6g">
+                                        <rect key="frame" x="0.0" y="310" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FBf-nO-P6g" id="vSO-sm-6mc">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m0D-nQ-38P">
+                                                    <rect key="frame" x="109" y="6.5" width="157" height="30"/>
+                                                    <state key="normal" title="Forgot your password?"/>
+                                                    <connections>
+                                                        <action selector="forgot:" destination="qed-W2-mdt" eventType="touchUpInside" id="eKQ-1t-ywd"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="m0D-nQ-38P" firstAttribute="centerY" secondItem="vSO-sm-6mc" secondAttribute="centerY" id="lWo-4n-YtS"/>
+                                                <constraint firstItem="m0D-nQ-38P" firstAttribute="centerX" secondItem="vSO-sm-6mc" secondAttribute="centerX" id="zA1-CB-0N6"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="qed-W2-mdt" id="MW6-a1-UAg"/>
+                            <outlet property="delegate" destination="qed-W2-mdt" id="mdG-i9-8Aq"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <outlet property="passwordTextField" destination="QeZ-sH-pAo" id="GsD-Ig-NNy"/>
+                        <outlet property="usernameTextField" destination="zUH-VT-DHn" id="dCZ-im-mdU"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="03B-HH-LQp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-812" y="-54"/>
+        </scene>
+    </scenes>
 </document>

@@ -12,6 +12,7 @@
 		9D5D4D5A1EE76A34008CC840 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9D5D4D581EE76A34008CC840 /* Model.xcdatamodeld */; };
 		9D5D4D5C1EE76A34008CC840 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D5D4D5B1EE76A34008CC840 /* Assets.xcassets */; };
 		9D5D4D5F1EE76A34008CC840 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9D5D4D5D1EE76A34008CC840 /* LaunchScreen.storyboard */; };
+		9DDF62821EE81A55005A810B /* DonutAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DDF62811EE81A55005A810B /* DonutAuthViewController.swift */; };
 		C9D705E053A5E363A70C4424 /* Pods_Donut_Client.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF593329A2B38208FB4230BE /* Pods_Donut_Client.framework */; };
 /* End PBXBuildFile section */
 
@@ -25,6 +26,7 @@
 		9D5D4D5B1EE76A34008CC840 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9D5D4D5E1EE76A34008CC840 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9D5D4D601EE76A34008CC840 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9DDF62811EE81A55005A810B /* DonutAuthViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DonutAuthViewController.swift; sourceTree = "<group>"; };
 		AF593329A2B38208FB4230BE /* Pods_Donut_Client.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Donut_Client.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -79,6 +81,7 @@
 			isa = PBXGroup;
 			children = (
 				9D5D4D551EE76A34008CC840 /* Main.storyboard */,
+				9DDF62811EE81A55005A810B /* DonutAuthViewController.swift */,
 				9D5D4D581EE76A34008CC840 /* Model.xcdatamodeld */,
 				9D5D4D661EE76A5A008CC840 /* Supporting Files */,
 			);
@@ -131,6 +134,7 @@
 				TargetAttributes = {
 					9D5D4D4D1EE76A34008CC840 = {
 						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = 4MZ8DH8Y8D;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -221,6 +225,7 @@
 			files = (
 				9D5D4D5A1EE76A34008CC840 /* Model.xcdatamodeld in Sources */,
 				9D5D4D521EE76A34008CC840 /* AppDelegate.swift in Sources */,
+				9DDF62821EE81A55005A810B /* DonutAuthViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -344,6 +349,7 @@
 			baseConfigurationReference = 844088FF7DE92E41C5557091 /* Pods-Donut Client.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 4MZ8DH8Y8D;
 				INFOPLIST_FILE = "Donut Client/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.allangarcia.apps.Donut-Client";
@@ -357,6 +363,7 @@
 			baseConfigurationReference = 511DBA65CCC59918349BFDDC /* Pods-Donut Client.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 4MZ8DH8Y8D;
 				INFOPLIST_FILE = "Donut Client/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.allangarcia.apps.Donut-Client";
@@ -384,6 +391,7 @@
 				9D5D4D651EE76A34008CC840 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
