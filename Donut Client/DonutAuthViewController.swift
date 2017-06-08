@@ -16,17 +16,40 @@ class DonutAuthViewController: UITableViewController, UITextFieldDelegate {
     
     var loggedUser: LoggedUser? {
         didSet {
-            print("Usuário autenticado com sucesso!")
-            //            let alert = UIAlertController(title: "Usuário autenticado", message: "O usuário foi autenticado com sucesso", preferredStyle: .alert)
-            //            present(alert, animated: true, completion: nil)
+            if loggedUser != nil {
+                print("Usuário autenticado com sucesso!")
+                
+                persistence.set(true, forKey: GlobalConstants.kUserLogged)
+                persistence.set(loggedUser!.token, forKey: GlobalConstants.kUserToken)
+                persistence.synchronize()
+                
+                presentingViewController?.dismiss(animated: true, completion: nil)
+            }
         }
     }
+    
+    // MARK: - Persistency
+    
+    private var persistence = UserDefaults.standard
     
     // MARK: - Constants
     
     private struct Constants {
-        static let prefix: String = "http://10.123.1.13:3000"
+        static let loggedUserKey: String = "loggedUser"
+        static let prefix: String = "http://localhost:3000"
         static let loginService: String = "\(prefix)/users/sign_in"
+    }
+    
+    // MARK: - Application Lifecycle
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if let loggedUserFromPersistence = persistence.object(forKey: Constants.loggedUserKey) {
+            if let myLoggedUser = loggedUserFromPersistence as? LoggedUser {
+                print(myLoggedUser)
+            }
+        }
     }
     
     // MARK: - Outlets
@@ -54,7 +77,9 @@ class DonutAuthViewController: UITableViewController, UITextFieldDelegate {
     // MARK: - UITextFieldDelegate
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
         textField.resignFirstResponder()
+        
         return true
     }
     
@@ -80,7 +105,6 @@ class DonutAuthViewController: UITableViewController, UITextFieldDelegate {
                           method: .post,
                           parameters: parameters,
                           encoding: JSONEncoding.default)
-            .validate(statusCode: 200..<300)
             .validate(contentType: ["application/json"])
             .responseJSON { [weak self] response in
                 
@@ -88,35 +112,18 @@ class DonutAuthViewController: UITableViewController, UITextFieldDelegate {
                     
                 case .success(let value):
                     
-                    let json = JSON(value)
-                    
-                    self?.loggedUser = LoggedUser.create(with: json)
+                    self?.loggedUser = LoggedUser.create(with: JSON(value))
                     
                 case .failure(let error):
+                    
+                    self?.loggedUser = nil
                     
                     print("Error: \(error)")
                     
                 }
-                
-            }
-            .responseString { response in
-                switch response.result {
-                case .success(let value):
-                    
-                    print("response string value on sucess: \(value)")
-                    
-                case .failure(let error):
-                    
-                    print("response string value on failure: \(error)")
-                    
-                    print("Response: \(response)")
-                    
-                    print("Result: \(response.result)")
-                    
-                }
+        
         }
         
     }
-    
     
 }

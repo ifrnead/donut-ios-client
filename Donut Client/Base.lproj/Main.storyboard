@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="qed-W2-mdt">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="73j-rx-eA0">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -10,6 +10,38 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Donut View Controller-->
+        <scene sceneID="by6-GT-st6">
+            <objects>
+                <viewController id="73j-rx-eA0" customClass="DonutViewController" customModule="Donut_Client" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="dso-DH-kDP"/>
+                        <viewControllerLayoutGuide type="bottom" id="2fU-hK-LbA"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="L3q-EW-3me">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yu1-Up-7VT">
+                                <rect key="frame" x="120" y="294" width="135" height="78"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <state key="normal" title="Login"/>
+                                <connections>
+                                    <segue destination="qed-W2-mdt" kind="presentation" identifier="kLoginSegue" id="blq-7z-9VG"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="loggedOrLoginButton" destination="yu1-Up-7VT" id="S2w-M0-3Rd"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7W7-db-26z" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2570.4000000000001" y="-669.71514242878561"/>
+        </scene>
         <!--Donut Auth View Controller-->
         <scene sceneID="WjA-YJ-tMJ">
             <objects>
@@ -48,7 +80,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1611525" placeholder="Username" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zUH-VT-DHn">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Username" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zUH-VT-DHn">
                                                     <rect key="frame" x="8" y="7.5" width="359" height="29"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="24"/>
@@ -73,7 +105,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="YVk-kfX-m6H-gQw" placeholder="Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QeZ-sH-pAo">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QeZ-sH-pAo">
                                                     <rect key="frame" x="8" y="7.5" width="359" height="29"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="24"/>
@@ -142,6 +174,7 @@
                             <outlet property="delegate" destination="qed-W2-mdt" id="mdG-i9-8Aq"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="XcR-46-xYb"/>
                     <connections>
                         <outlet property="passwordTextField" destination="QeZ-sH-pAo" id="GsD-Ig-NNy"/>
                         <outlet property="usernameTextField" destination="zUH-VT-DHn" id="dCZ-im-mdU"/>
@@ -149,7 +182,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="03B-HH-LQp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1708" y="-480"/>
+            <point key="canvasLocation" x="-1663" y="-670"/>
         </scene>
     </scenes>
 </document>
