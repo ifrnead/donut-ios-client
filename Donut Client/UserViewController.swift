@@ -32,6 +32,7 @@ class UserViewController: UITableViewController {
     
     struct Constants {
         static let kCurrentUserId: String = "kCurrentUserId"
+        static let segueToLoginViewController: String = "Segue To LoginViewController"
     }
 
     // MARK: - Outlets
@@ -82,7 +83,7 @@ class UserViewController: UITableViewController {
             if let context = container?.viewContext {
                 currentUser = User.findUserById(with: currentUserId, in: context)
                 if currentUser == nil {
-                    performSegue(withIdentifier: "Show Login", sender: nil)
+                    performSegue(withIdentifier: Constants.segueToLoginViewController, sender: nil)
                 }
             }
             
@@ -90,7 +91,7 @@ class UserViewController: UITableViewController {
             
             // I never logged before
             
-            performSegue(withIdentifier: "Show Login", sender: nil)
+            performSegue(withIdentifier: Constants.segueToLoginViewController, sender: nil)
 
         }
     }

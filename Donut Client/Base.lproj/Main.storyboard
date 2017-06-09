@@ -62,7 +62,7 @@
                         <outlet property="categoryTextField" destination="GKk-j3-w8L" id="Kzy-DH-kOW"/>
                         <outlet property="nameTextField" destination="rno-3z-zu3" id="8Ac-5r-bA8"/>
                         <outlet property="userImage" destination="q7B-m7-APS" id="KXi-n0-8Ju"/>
-                        <segue destination="qed-W2-mdt" kind="presentation" identifier="Show Login" id="CYR-0X-SW9"/>
+                        <segue destination="qed-W2-mdt" kind="presentation" identifier="Segue To LoginViewController" id="CYR-0X-SW9"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NjU-qg-TK2" userLabel="First Responder" sceneMemberID="firstResponder"/>
