@@ -11,10 +11,27 @@ import CoreData
 
 class UserViewController: UITableViewController {
     
+    // MARK: - Model
+    
+    var currentUser: User? {
+        didSet {
+            
+            print(currentUser?.id)
+            print(currentUser?.name)
+
+            print(currentUser ?? "currentUser is nil")
+            
+            
+            if currentUser != nil {
+                UserDefaults.standard.set(currentUser?.id, forKey: Constants.kCurrentUserId)
+            }
+        }
+    }
+    
     // MARK: - Constants
     
     struct Constants {
-        static let kUserLogged: String = "kUserLogged"
+        static let kCurrentUserId: String = "kCurrentUserId"
     }
 
     // MARK: - Outlets
@@ -25,31 +42,57 @@ class UserViewController: UITableViewController {
     
     @IBOutlet weak var categoryTextField: UILabel!
     
-    // MARK: - Persistency
-    
-    private var persistence = UserDefaults.standard
-    
     // MARK: - CoreData
     
-    var container: NSPersistentContainer? =
-        (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer
-
+    var container: NSPersistentContainer? = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer
     
     // MARK: - View Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        segueToLoginViewControllerIfNotLogged()
+        determineIfIHaveCurrentUser()
+                
+    }
+    
+    // MARK: - Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // prepare for segue
+    }
+    
+    @IBAction func unwind(from segue: UIStoryboardSegue) {
+        // do stuff
     }
     
     // MARK: - Private Implementation
     
-    private func segueToLoginViewControllerIfNotLogged() {
-        let userLogged = persistence.bool(forKey: Constants.kUserLogged)
-        if !userLogged {
+    private func determineIfIHaveCurrentUser() {
+        
+        let currentUserId = UserDefaults.standard.integer(forKey: Constants.kCurrentUserId)
+        
+        if currentUser != nil {
+            
+            // I'm logged!
+            
+        } else if currentUserId != 0 {
+            
+            // Try to get from database if I was logged before
+            
+            if let context = container?.viewContext {
+                currentUser = User.findUserById(with: currentUserId, in: context)
+                if currentUser == nil {
+                    performSegue(withIdentifier: "Show Login", sender: nil)
+                }
+            }
+            
+        } else {
+            
+            // I never logged before
+            
             performSegue(withIdentifier: "Show Login", sender: nil)
-        }
 
+        }
     }
+
 }

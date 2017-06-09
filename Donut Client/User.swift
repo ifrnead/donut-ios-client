@@ -10,28 +10,49 @@ import CoreData
 import SwiftyJSON
 
 class User: NSManagedObject {
+    
+    class func findUserById(with id: Int, in context: NSManagedObjectContext) -> User? {
+        
+        let request: NSFetchRequest<User> = User.fetchRequest()
+        
+        request.predicate = NSPredicate(format: "id = %d", id)
+        
+        do {
+            let matches = try context.fetch(request)
+            if matches.count > 0 {
+                assert(matches.count == 1, "User.findUserById -- database inconsistency")
+                return matches[0] // Found user
+            }
+        } catch {
+            // do nothing yet
+        }
+        
+        return nil
+    }
 
     class func findOrCreateUser(with json: JSON, in context: NSManagedObjectContext) throws -> User {
         
         let request: NSFetchRequest<User> = User.fetchRequest()
         
-        request.predicate = NSPredicate(format: "id = %@", json["id"].intValue)
+        request.predicate = NSPredicate(format: "id = %d", json["id"].intValue)
+        
+        let user: User
         
         do {
             let matches = try context.fetch(request)
             if matches.count > 0 {
                 assert(matches.count == 1, "User.findOrCreateUser -- database inconsistency")
-                return matches[0]
+                user = matches[0] // Existing user
+            } else {
+                user = User(context: context) // New user
             }
         } catch {
             throw error
         }
         
-        let user = User(context: context)
-        
-        user.id = json["id"].int16Value
-        user.enroll_id = json["enroll_id"].int16Value
-        user.suap_id = json["suap_id"].int16Value
+        user.id = json["id"].int64Value
+        user.enroll_id = json["enroll_id"].int64Value
+        user.suap_id = json["suap_id"].int64Value
         user.username = json["username"].stringValue
         user.name = json["name"].stringValue
         user.fullname = json["fullname"].stringValue
@@ -42,11 +63,15 @@ class User: NSManagedObject {
         user.suap_token = json["suap_token"].stringValue
         
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        
+        dateFormatter.dateFormat = "yyyy-MM-dd"
         
         if let date = dateFormatter.date(from: json["suap_token_expiration_date"].stringValue) {
             user.suap_token_expiration_date = date as NSDate
         }
+        
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        
         if let date = dateFormatter.date(from: json["updated_at"].stringValue) {
             user.updated_at = date as NSDate
         }
