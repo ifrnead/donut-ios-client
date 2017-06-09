@@ -12,7 +12,10 @@
 		9D5D4D5A1EE76A34008CC840 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9D5D4D581EE76A34008CC840 /* Model.xcdatamodeld */; };
 		9D5D4D5C1EE76A34008CC840 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D5D4D5B1EE76A34008CC840 /* Assets.xcassets */; };
 		9D5D4D5F1EE76A34008CC840 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9D5D4D5D1EE76A34008CC840 /* LaunchScreen.storyboard */; };
-		9DBE5BD21EEA0AD8005292B7 /* DonutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBE5BD11EEA0AD8005292B7 /* DonutViewController.swift */; };
+		9DC835F11EEAAF7300CE2581 /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC835F01EEAAF7300CE2581 /* UserViewController.swift */; };
+		9DC835F31EEAB03700CE2581 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC835F21EEAB03700CE2581 /* LoginViewController.swift */; };
+		9DC835F61EEABD5F00CE2581 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC835F51EEABD5F00CE2581 /* User.swift */; };
+		9DC835F81EEAC2B200CE2581 /* FetchedResultsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC835F71EEAC2B200CE2581 /* FetchedResultsTableViewController.swift */; };
 		9DDF62821EE81A55005A810B /* DonutAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DDF62811EE81A55005A810B /* DonutAuthViewController.swift */; };
 		9DE933991EE9CE9A00986F67 /* LoggedUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE933981EE9CE9A00986F67 /* LoggedUser.swift */; };
 		C9D705E053A5E363A70C4424 /* Pods_Donut_Client.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF593329A2B38208FB4230BE /* Pods_Donut_Client.framework */; };
@@ -28,7 +31,10 @@
 		9D5D4D5B1EE76A34008CC840 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9D5D4D5E1EE76A34008CC840 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9D5D4D601EE76A34008CC840 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9DBE5BD11EEA0AD8005292B7 /* DonutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DonutViewController.swift; sourceTree = "<group>"; };
+		9DC835F01EEAAF7300CE2581 /* UserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
+		9DC835F21EEAB03700CE2581 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		9DC835F51EEABD5F00CE2581 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		9DC835F71EEAC2B200CE2581 /* FetchedResultsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchedResultsTableViewController.swift; sourceTree = "<group>"; };
 		9DDF62811EE81A55005A810B /* DonutAuthViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DonutAuthViewController.swift; sourceTree = "<group>"; };
 		9DE933981EE9CE9A00986F67 /* LoggedUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggedUser.swift; sourceTree = "<group>"; };
 		AF593329A2B38208FB4230BE /* Pods_Donut_Client.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Donut_Client.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -85,10 +91,10 @@
 			isa = PBXGroup;
 			children = (
 				9D5D4D551EE76A34008CC840 /* Main.storyboard */,
-				9DBE5BD11EEA0AD8005292B7 /* DonutViewController.swift */,
-				9DE933981EE9CE9A00986F67 /* LoggedUser.swift */,
-				9DDF62811EE81A55005A810B /* DonutAuthViewController.swift */,
-				9D5D4D581EE76A34008CC840 /* Model.xcdatamodeld */,
+				9DC835F01EEAAF7300CE2581 /* UserViewController.swift */,
+				9DC835F21EEAB03700CE2581 /* LoginViewController.swift */,
+				9DC835FC1EEAC97500CE2581 /* CoreData */,
+				9DC835F41EEAB0D200CE2581 /* Deprecated */,
 				9D5D4D661EE76A5A008CC840 /* Supporting Files */,
 			);
 			path = "Donut Client";
@@ -97,12 +103,31 @@
 		9D5D4D661EE76A5A008CC840 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				9DC835F71EEAC2B200CE2581 /* FetchedResultsTableViewController.swift */,
 				9D5D4D511EE76A34008CC840 /* AppDelegate.swift */,
 				9D5D4D5B1EE76A34008CC840 /* Assets.xcassets */,
 				9D5D4D5D1EE76A34008CC840 /* LaunchScreen.storyboard */,
 				9D5D4D601EE76A34008CC840 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9DC835F41EEAB0D200CE2581 /* Deprecated */ = {
+			isa = PBXGroup;
+			children = (
+				9DE933981EE9CE9A00986F67 /* LoggedUser.swift */,
+				9DDF62811EE81A55005A810B /* DonutAuthViewController.swift */,
+			);
+			name = Deprecated;
+			sourceTree = "<group>";
+		};
+		9DC835FC1EEAC97500CE2581 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				9DC835F51EEABD5F00CE2581 /* User.swift */,
+				9D5D4D581EE76A34008CC840 /* Model.xcdatamodeld */,
+			);
+			name = CoreData;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -229,11 +254,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9DC835F31EEAB03700CE2581 /* LoginViewController.swift in Sources */,
 				9DE933991EE9CE9A00986F67 /* LoggedUser.swift in Sources */,
+				9DC835F11EEAAF7300CE2581 /* UserViewController.swift in Sources */,
 				9D5D4D5A1EE76A34008CC840 /* Model.xcdatamodeld in Sources */,
 				9D5D4D521EE76A34008CC840 /* AppDelegate.swift in Sources */,
 				9DDF62821EE81A55005A810B /* DonutAuthViewController.swift in Sources */,
-				9DBE5BD21EEA0AD8005292B7 /* DonutViewController.swift in Sources */,
+				9DC835F81EEAC2B200CE2581 /* FetchedResultsTableViewController.swift in Sources */,
+				9DC835F61EEABD5F00CE2581 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
