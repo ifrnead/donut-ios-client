@@ -15,25 +15,27 @@ class LoginViewController: UITableViewController, UITextFieldDelegate {
     
     // MARK: - Model
     
-    var currentUser: User? {
+    private var currentUser: User? {
         didSet {
             if currentUser != nil {
                 performSegue(withIdentifier: Constants.unwindSegueToUserViewController, sender: self)
             } else {
-                print("Login falhou... criar UI para isso")
+                headerLabel.text = "Sorry, but I can't login. Are you sure you using SUAP-ID credentials? Please try again."
             }
         }
     }
     
     // MARK: - Constants
     
-    private struct Constants {
+    struct Constants {
         static let prefix: String = "http://localhost:3000"
         static let loginService: String = "\(prefix)/users/sign_in"
         static let unwindSegueToUserViewController: String = "Unwind To UserViewController"
     }
 
     // MARK: - Outlets
+    
+    @IBOutlet weak var headerLabel: UILabel!
     
     @IBOutlet weak var usernameTextField: UITextField!
     

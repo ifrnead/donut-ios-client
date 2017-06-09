@@ -194,16 +194,20 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="117"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Donut Client Login" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YOc-PB-FfL">
-                                                    <rect key="frame" x="35.5" y="34.5" width="304" height="48"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="thin" pointSize="40"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use your SUAP-ID to authenticate" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YOc-PB-FfL">
+                                                    <rect key="frame" x="8" y="8" width="359" height="101"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="thin" pointSize="24"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="leadingMargin" secondItem="YOc-PB-FfL" secondAttribute="leading" id="0L0-69-koW"/>
                                                 <constraint firstItem="YOc-PB-FfL" firstAttribute="centerX" secondItem="uwC-V5-mww" secondAttribute="centerX" id="V3a-60-99R"/>
                                                 <constraint firstItem="YOc-PB-FfL" firstAttribute="centerY" secondItem="uwC-V5-mww" secondAttribute="centerY" id="ah6-c8-90r"/>
+                                                <constraint firstAttribute="topMargin" secondItem="YOc-PB-FfL" secondAttribute="top" id="ejD-Wc-6MY"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="YOc-PB-FfL" secondAttribute="trailing" id="m7Q-iF-L1F"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="YOc-PB-FfL" secondAttribute="bottom" id="muO-Nw-MhO"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -310,6 +314,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="XcR-46-xYb"/>
                     <connections>
+                        <outlet property="headerLabel" destination="YOc-PB-FfL" id="S82-TH-O4M"/>
                         <outlet property="passwordTextField" destination="QeZ-sH-pAo" id="GsD-Ig-NNy"/>
                         <outlet property="usernameTextField" destination="zUH-VT-DHn" id="dCZ-im-mdU"/>
                         <segue destination="ISg-HP-GGt" kind="unwind" identifier="Unwind To UserViewController" unwindAction="unwindFrom:" id="auM-YR-gcm"/>
@@ -318,7 +323,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="03B-HH-LQp" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="ISg-HP-GGt" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-1903" y="7"/>
+            <point key="canvasLocation" x="-1903.2" y="6.746626686656672"/>
         </scene>
         <!--User-->
         <scene sceneID="VHA-f9-hG0">

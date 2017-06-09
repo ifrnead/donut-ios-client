@@ -13,17 +13,21 @@ class UserViewController: UITableViewController {
     
     // MARK: - Model
     
+    var currentUserId: Int {
+        get {
+            return UserDefaults.standard.integer(forKey: Constants.defaultsUserID)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: Constants.defaultsUserID)
+        }
+    }
+    
     var currentUser: User? {
         didSet {
-            
-            print(currentUser?.id)
-            print(currentUser?.name)
-
-            print(currentUser ?? "currentUser is nil")
-            
-            
             if currentUser != nil {
-                UserDefaults.standard.set(currentUser?.id, forKey: Constants.kCurrentUserId)
+                if let id = currentUser?.id {
+                    currentUserId = Int(id)
+                }
             }
         }
     }
@@ -31,7 +35,7 @@ class UserViewController: UITableViewController {
     // MARK: - Constants
     
     struct Constants {
-        static let kCurrentUserId: String = "kCurrentUserId"
+        static let defaultsUserID: String = "defaultsUserID"
         static let segueToLoginViewController: String = "Segue To LoginViewController"
     }
 
@@ -70,30 +74,36 @@ class UserViewController: UITableViewController {
     
     private func determineIfIHaveCurrentUser() {
         
-        let currentUserId = UserDefaults.standard.integer(forKey: Constants.kCurrentUserId)
-        
         if currentUser != nil {
             
             // I'm logged!
             
-        } else if currentUserId != 0 {
-            
-            // Try to get from database if I was logged before
-            
-            if let context = container?.viewContext {
-                currentUser = User.findUserById(with: currentUserId, in: context)
-                if currentUser == nil {
-                    performSegue(withIdentifier: Constants.segueToLoginViewController, sender: nil)
-                }
-            }
-            
         } else {
             
-            // I never logged before
+            if currentUserId != 0 {
+                
+                // Try to get from database if I was logged before
+                
+                if let context = container?.viewContext {
+                    currentUser = User.findUserById(with: currentUserId, in: context)
+                    if currentUser == nil {
+                        performSegueToLoginViewController()
+                    }
+                }
+                
+            } else {
+                
+                // I never logged before
+                
+                performSegueToLoginViewController()
+                
+            }
             
-            performSegue(withIdentifier: Constants.segueToLoginViewController, sender: nil)
-
         }
+    }
+    
+    private func performSegueToLoginViewController() {
+        performSegue(withIdentifier: Constants.segueToLoginViewController, sender: self)
     }
 
 }
