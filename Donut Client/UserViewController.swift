@@ -28,6 +28,7 @@ class UserViewController: UITableViewController {
                 if let id = currentUser?.id {
                     currentUserId = Int(id)
                 }
+                updateUI()
             }
         }
     }
@@ -71,6 +72,10 @@ class UserViewController: UITableViewController {
     }
     
     // MARK: - Private Implementation
+    
+    private func updateUI() {
+        debugPrint(self.currentUser!)
+    }
     
     private func determineIfIHaveCurrentUser() {
         
