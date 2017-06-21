@@ -7,17 +7,15 @@
 //
 
 import UIKit
-import CoreData
-import Alamofire
-import SwiftyJSON
+
 
 class LoginViewController: UITableViewController, UITextFieldDelegate {
     
     // MARK: - Model
     
-    private var currentUser: User? {
+    private var token: String? {
         didSet {
-            if currentUser != nil {
+            if token != nil {
                 performSegue(withIdentifier: Constants.unwindSegueToUserViewController, sender: self)
             } else {
                 headerLabel.text = "Sorry, but I can't login. Are you sure you using SUAP-ID credentials? Please try again."
@@ -27,9 +25,7 @@ class LoginViewController: UITableViewController, UITextFieldDelegate {
     
     // MARK: - Constants
     
-    struct Constants {
-        static let prefix: String = "http://localhost:3000"
-        static let loginService: String = "\(prefix)/users/sign_in"
+    private struct Constants {
         static let unwindSegueToUserViewController: String = "Unwind To UserViewController"
     }
 
@@ -41,15 +37,11 @@ class LoginViewController: UITableViewController, UITextFieldDelegate {
     
     @IBOutlet weak var passwordTextField: UITextField!
     
-    // MARK: - CoreData
-    
-    var container: NSPersistentContainer? = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer
-    
     // MARK: - Actions
     
     @IBAction func login(_ sender: UIButton) {
         
-        requestLogin()
+        requestLoginAsync()
         
     }
     
@@ -62,7 +54,7 @@ class LoginViewController: UITableViewController, UITextFieldDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Constants.unwindSegueToUserViewController {
             if let userViewController = segue.destination as? UserViewController {
-                userViewController.currentUser = currentUser
+                // do
             }
         }
     }
@@ -85,45 +77,23 @@ class LoginViewController: UITableViewController, UITextFieldDelegate {
         
     }
     
-    private func requestLogin() {
+    private func requestLoginAsync() {
         
-        let parameters: Parameters = [
-            "user": [
-                "username": usernameTextField.text,
-                "password": passwordTextField.text
-            ]
-        ]
-        
-        Alamofire.request(Constants.loginService,
-                          method: .post,
-                          parameters: parameters,
-                          encoding: JSONEncoding.default)
-            .validate(contentType: ["application/json"])
-            .responseJSON { [weak self] response in
+        if let username = usernameTextField.text, let password = passwordTextField.text {
+            
+            DonutServer.standard.requestAuth(for: username, and: password) { [weak self] response in
                 
-                switch response.result {
-                    
-                case .success(let value):
-                    
-                    self?.container?.performBackgroundTask { context in
-                        do {
-                            self?.currentUser = try User.findOrCreateUser(with: JSON(value), in: context)
-                            try context.save()
-                        } catch let error {
-                            print("Error: \(error)")
-                        }
-                    }
-                                        
-                case .failure(let error):
-                    
-                    self?.currentUser = nil
-                    
-                    print("Error: \(error)")
-                    
+                switch response {
+                case .success(let token):
+                    self?.token = token
+                case .fail:
+                    self?.token = nil
                 }
                 
+            }
+            
         }
-        
+
     }
 
 }

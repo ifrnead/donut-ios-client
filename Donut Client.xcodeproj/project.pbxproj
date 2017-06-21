@@ -16,6 +16,7 @@
 		9DC835F31EEAB03700CE2581 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC835F21EEAB03700CE2581 /* LoginViewController.swift */; };
 		9DC835F61EEABD5F00CE2581 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC835F51EEABD5F00CE2581 /* User.swift */; };
 		9DC835F81EEAC2B200CE2581 /* FetchedResultsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC835F71EEAC2B200CE2581 /* FetchedResultsTableViewController.swift */; };
+		9DF2FE351EF99500009FFF66 /* DonutServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF2FE341EF99500009FFF66 /* DonutServer.swift */; };
 		C9D705E053A5E363A70C4424 /* Pods_Donut_Client.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF593329A2B38208FB4230BE /* Pods_Donut_Client.framework */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +34,7 @@
 		9DC835F21EEAB03700CE2581 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		9DC835F51EEABD5F00CE2581 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		9DC835F71EEAC2B200CE2581 /* FetchedResultsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchedResultsTableViewController.swift; sourceTree = "<group>"; };
+		9DF2FE341EF99500009FFF66 /* DonutServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DonutServer.swift; sourceTree = "<group>"; };
 		AF593329A2B38208FB4230BE /* Pods_Donut_Client.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Donut_Client.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -89,6 +91,7 @@
 				9D5D4D551EE76A34008CC840 /* Main.storyboard */,
 				9DC835F01EEAAF7300CE2581 /* UserViewController.swift */,
 				9DC835F21EEAB03700CE2581 /* LoginViewController.swift */,
+				9DF2FE341EF99500009FFF66 /* DonutServer.swift */,
 				9DC835FC1EEAC97500CE2581 /* CoreData */,
 				9D5D4D661EE76A5A008CC840 /* Supporting Files */,
 			);
@@ -240,6 +243,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9DF2FE351EF99500009FFF66 /* DonutServer.swift in Sources */,
 				9DC835F31EEAB03700CE2581 /* LoginViewController.swift in Sources */,
 				9DC835F11EEAAF7300CE2581 /* UserViewController.swift in Sources */,
 				9D5D4D5A1EE76A34008CC840 /* Model.xcdatamodeld in Sources */,
