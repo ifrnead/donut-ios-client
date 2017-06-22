@@ -9,6 +9,7 @@
 import CoreData
 import SwiftyJSON
 
+
 class User: NSManagedObject {
     
     class func findUserById(with id: Int, in context: NSManagedObjectContext) -> User? {
