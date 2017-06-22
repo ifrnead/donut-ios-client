@@ -7,28 +7,23 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 
 class LoginViewController: UITableViewController, UITextFieldDelegate {
     
-    // MARK: - Model
-    
-    private var token: String? {
-        didSet {
-            if token != nil {
-                performSegue(withIdentifier: Constants.unwindSegueToUserViewController, sender: self)
-            } else {
-                headerLabel.text = "Sorry, but I can't login. Are you sure you using SUAP-ID credentials? Please try again."
-            }
-        }
-    }
-    
     // MARK: - Constants
     
     private struct Constants {
-        static let unwindSegueToUserViewController: String = "Unwind To UserViewController"
+    
+        static let serverPrefix: String = "http://10.123.1.128:3000"
+        static let loginService: String = "\(serverPrefix)/api/auth"
+        
+        static let defaultsTokenKey: String = "tokenKey"
+        
     }
-
+    
     // MARK: - Outlets
     
     @IBOutlet weak var headerLabel: UILabel!
@@ -41,7 +36,7 @@ class LoginViewController: UITableViewController, UITextFieldDelegate {
     
     @IBAction func login(_ sender: UIButton) {
         
-        requestLoginAsync()
+        requestAuthAsync()
         
     }
     
@@ -49,14 +44,69 @@ class LoginViewController: UITableViewController, UITextFieldDelegate {
         
     }
     
-    // MARK: - Navigation
+    // MARK: - Model
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == Constants.unwindSegueToUserViewController {
-            if let userViewController = segue.destination as? UserViewController {
-                // do
+    private var token: String? {
+        didSet {
+            UserDefaults.standard.set(token, forKey: Constants.defaultsTokenKey)
+            if token != nil {
+                presentingViewController?.dismiss(animated: true, completion: nil)
+            } else {
+                headerLabel.text = "Sorry, but I can't login. Are you sure you using SUAP-ID credentials? Please try again."
             }
         }
+    }
+    
+    // MARK: - Network
+    
+    private func requestAuthAsync() {
+        
+        if let username = usernameTextField.text, let password = passwordTextField.text {
+            
+            let parameters: Parameters = [
+                "user": [
+                    "username": username,
+                    "password": password
+                ]
+            ]
+            
+            Alamofire.request(Constants.loginService,
+                              method: .post,
+                              parameters: parameters,
+                              encoding: JSONEncoding.default)
+                .validate(contentType: ["application/json"])
+                .responseJSON { [weak self] response in
+                    
+                    switch response.result {
+                        
+                    case .success(let value):
+                        
+                        debugPrint("Response: \(value)")
+                        
+                        let jsonResponse = JSON(value)
+                        
+                        if let token = jsonResponse["token"].string {
+                            
+                            self?.token = token
+                            
+                        } else {
+                            
+                            self?.token = nil
+
+                        }
+                        
+                    case .failure(let error):
+                        
+                        debugPrint("Error: \(error)")
+                        
+                        self?.token = nil
+                        
+                    }
+                    
+            }
+            
+        }
+        
     }
     
     // MARK: - UITextFieldDelegate
@@ -66,34 +116,6 @@ class LoginViewController: UITableViewController, UITextFieldDelegate {
         textField.resignFirstResponder()
         
         return true
-    }
-    
-    // MARK: - Private implementation
-    
-    private func resignFirstResponderFromAllInputs() {
-        
-        usernameTextField.resignFirstResponder()
-        passwordTextField.resignFirstResponder()
-        
-    }
-    
-    private func requestLoginAsync() {
-        
-        if let username = usernameTextField.text, let password = passwordTextField.text {
-            
-            DonutServer.standard.requestAuth(for: username, and: password) { [weak self] response in
-                
-                switch response {
-                case .success(let token):
-                    self?.token = token
-                case .fail:
-                    self?.token = nil
-                }
-                
-            }
-            
-        }
-
     }
 
 }

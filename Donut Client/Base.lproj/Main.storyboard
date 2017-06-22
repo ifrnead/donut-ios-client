@@ -14,7 +14,7 @@
         <scene sceneID="Gib-am-vHe">
             <objects>
                 <tableViewController id="h97-X3-iv1" customClass="UserViewController" customModule="Donut_Client" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="hm6-4j-8Vk">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="hm6-4j-8Vk">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -25,28 +25,45 @@
                                         <rect key="frame" x="0.0" y="35" width="375" height="402"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="w5p-JS-jdL" id="gyc-NV-nNw">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="401.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="402"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="q7B-m7-APS">
-                                                    <rect key="frame" x="123" y="8" width="128" height="128"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="q7B-m7-APS">
+                                                    <rect key="frame" x="112" y="8" width="150" height="200"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="150" id="Sal-Mc-ebG"/>
+                                                    </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Nome do usuário" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rno-3z-zu3">
-                                                    <rect key="frame" x="8" y="144" width="359" height="43"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nome do usuário" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rno-3z-zu3">
+                                                    <rect key="frame" x="8" y="216" width="359" height="43"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="43" id="ibz-iF-RFj"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Cargo do usuário" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GKk-j3-w8L">
-                                                    <rect key="frame" x="8" y="195" width="359" height="52"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cargo do usuário" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GKk-j3-w8L">
+                                                    <rect key="frame" x="8" y="267" width="359" height="52"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="52" id="U7j-LL-hw1"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="rno-3z-zu3" firstAttribute="top" secondItem="q7B-m7-APS" secondAttribute="bottom" constant="8" symbolic="YES" id="9JR-za-f5q"/>
+                                                <constraint firstItem="rno-3z-zu3" firstAttribute="trailing" secondItem="GKk-j3-w8L" secondAttribute="trailing" id="B2B-ZV-KB5"/>
+                                                <constraint firstItem="rno-3z-zu3" firstAttribute="leading" secondItem="gyc-NV-nNw" secondAttribute="leadingMargin" id="JOY-Cp-cxs"/>
+                                                <constraint firstItem="q7B-m7-APS" firstAttribute="top" secondItem="gyc-NV-nNw" secondAttribute="topMargin" id="PiJ-UM-3JI"/>
+                                                <constraint firstItem="q7B-m7-APS" firstAttribute="centerX" secondItem="rno-3z-zu3" secondAttribute="centerX" id="Z1a-oN-7LY"/>
+                                                <constraint firstItem="rno-3z-zu3" firstAttribute="trailing" secondItem="gyc-NV-nNw" secondAttribute="trailingMargin" id="dIy-2N-VVs"/>
+                                                <constraint firstItem="rno-3z-zu3" firstAttribute="leading" secondItem="GKk-j3-w8L" secondAttribute="leading" id="k0d-AL-hlN"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="GKk-j3-w8L" secondAttribute="bottom" constant="74.5" id="qUG-Kw-bw5"/>
+                                                <constraint firstItem="GKk-j3-w8L" firstAttribute="top" secondItem="rno-3z-zu3" secondAttribute="bottom" constant="8" symbolic="YES" id="sTC-xa-quy"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -67,7 +84,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NjU-qg-TK2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2754" y="7"/>
+            <point key="canvasLocation" x="-2754.4000000000001" y="6.746626686656672"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="aKU-7g-BXl">
@@ -317,11 +334,9 @@
                         <outlet property="headerLabel" destination="YOc-PB-FfL" id="S82-TH-O4M"/>
                         <outlet property="passwordTextField" destination="QeZ-sH-pAo" id="GsD-Ig-NNy"/>
                         <outlet property="usernameTextField" destination="zUH-VT-DHn" id="dCZ-im-mdU"/>
-                        <segue destination="ISg-HP-GGt" kind="unwind" identifier="Unwind To UserViewController" unwindAction="unwindFrom:" id="auM-YR-gcm"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="03B-HH-LQp" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="ISg-HP-GGt" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="-1903.2" y="6.746626686656672"/>
         </scene>

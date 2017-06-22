@@ -7,37 +7,26 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 import CoreData
+
 
 class UserViewController: UITableViewController {
     
-    // MARK: - Model
-    
-    var currentUserId: Int {
-        get {
-            return UserDefaults.standard.integer(forKey: Constants.defaultsUserID)
-        }
-        set {
-            UserDefaults.standard.set(newValue, forKey: Constants.defaultsUserID)
-        }
-    }
-    
-    var currentUser: User? {
-        didSet {
-            if currentUser != nil {
-                if let id = currentUser?.id {
-                    currentUserId = Int(id)
-                }
-                updateUI()
-            }
-        }
-    }
-    
     // MARK: - Constants
     
-    struct Constants {
-        static let defaultsUserID: String = "defaultsUserID"
+    private struct Constants {
+        
+        static let serverPrefix: String = "http://10.123.1.128:3000"
+        static let myUserInfoService: String = "\(serverPrefix)/api/users/me"
+        static let suapPrefix: String = "http://suap.ifrn.edu.br"
+        
         static let segueToLoginViewController: String = "Segue To LoginViewController"
+        
+        static let defaultsTokenKey: String = "tokenKey"
+        static let defaultsUserIdKey: String = "userIdKey"
+        
     }
 
     // MARK: - Outlets
@@ -48,67 +37,150 @@ class UserViewController: UITableViewController {
     
     @IBOutlet weak var categoryTextField: UILabel!
     
+    // MARK: - Actions
+
+    
+    
+    // MARK: - Model
+    
+    private var user: User? {
+        didSet {
+            if let id = user?.id {
+                userId = Int(id)
+            }
+            if user != nil {
+                updateUI()
+            }
+        }
+    }
+    
+    // MARK: - Network
+    
+    private func requestMyUserInfoAsync(with token: String) {
+        
+        let headers: HTTPHeaders = [
+            "Authorization": "Token \(token)",
+            "Accept": "application/json"
+        ]
+        
+        Alamofire.request(Constants.myUserInfoService,
+                          method: .get,
+                          headers: headers)
+            .validate(contentType: ["application/json"])
+            .responseJSON { [weak self] response in
+                
+                switch response.result {
+                    
+                case .success(let value):
+                    
+                    debugPrint("Response: \(value)")
+                    
+                    let jsonResponse = JSON(value)
+                    
+                    if jsonResponse["id"].exists() {
+                        
+                        self?.container?.performBackgroundTask { context in
+                            let user = try? User.findOrCreateUser(with: jsonResponse, in: context)
+                            try? context.save()
+                            
+                            DispatchQueue.main.async {
+                                self?.user = user
+                            }
+                            
+                        }
+                        
+                    } else {
+                        
+                        // nao peguei os dados por algum motivo
+                        
+                    }
+                    
+                case .failure(let error):
+                    
+                    debugPrint("Error: \(error)")
+                    
+                    // servidor deu erro por algum motivo
+                    
+                }
+                
+        }
+        
+    }
+    
+    // MARK: - Private Implementation
+    
+    private var token: String? {
+        return UserDefaults.standard.string(forKey: Constants.defaultsTokenKey)
+    }
+    
+    private var isAuthenticated: Bool {
+        return (token != nil) ? true : false
+    }
+    
+    private var userId: Int? {
+        get {
+            return UserDefaults.standard.integer(forKey: Constants.defaultsUserIdKey)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: Constants.defaultsUserIdKey)
+        }
+    }
+    
+    private func updateUI() {
+        
+        if let name = user?.name {
+            nameTextField.text = name
+        }
+        
+        if let category = user?.category {
+            categoryTextField.text = category
+        }
+        
+        if let picUrl = user?.url_profile_pic {
+            let suapUrl = Constants.suapPrefix
+            let url = URL(string: suapUrl.appending(picUrl))
+            let data = try? Data(contentsOf: url!)
+            let image = UIImage(data: data!)
+            userImage.image = image!
+        }
+                
+    }
+    
+    private func performSegueToLoginViewController() {
+        performSegue(withIdentifier: Constants.segueToLoginViewController, sender: self)
+    }
+    
     // MARK: - CoreData
     
     var container: NSPersistentContainer? = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer
     
     // MARK: - View Lifecycle
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
-        determineIfIHaveCurrentUser()
-                
-    }
-    
-    // MARK: - Navigation
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // prepare for segue
-    }
-    
-    @IBAction func unwind(from segue: UIStoryboardSegue) {
-        // do stuff
-    }
-    
-    // MARK: - Private Implementation
-    
-    private func updateUI() {
-        debugPrint(self.currentUser!)
-    }
-    
-    private func determineIfIHaveCurrentUser() {
-        
-        if currentUser != nil {
+        if isAuthenticated {
             
-            // I'm logged!
-            
-        } else {
-            
-            if currentUserId != 0 {
-                
-                // Try to get from database if I was logged before
+            if let id = userId {
                 
                 if let context = container?.viewContext {
-                    currentUser = User.findUserById(with: currentUserId, in: context)
-                    if currentUser == nil {
-                        performSegueToLoginViewController()
-                    }
+                    self.user = User.findUserById(with: id, in: context)
                 }
+                
+                requestMyUserInfoAsync(with: token!)
                 
             } else {
                 
-                // I never logged before
-                
-                performSegueToLoginViewController()
+                requestMyUserInfoAsync(with: token!)
                 
             }
             
+        } else {
+            
+            performSegueToLoginViewController()
+            
         }
+        
     }
     
-    private func performSegueToLoginViewController() {
-        performSegue(withIdentifier: Constants.segueToLoginViewController, sender: self)
-    }
-
 }
