@@ -25,7 +25,7 @@
                                         <rect key="frame" x="0.0" y="35" width="375" height="402"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="w5p-JS-jdL" id="gyc-NV-nNw">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="402"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="401.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="q7B-m7-APS">
@@ -96,10 +96,10 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="eAA-Dj-K2U" kind="relationship" relationship="viewControllers" id="R4a-Zr-k4K"/>
-                        <segue destination="wLc-Bw-KMA" kind="relationship" relationship="viewControllers" id="pbs-G4-gQE"/>
-                        <segue destination="6WJ-ew-KBe" kind="relationship" relationship="viewControllers" id="5B5-5j-P9b"/>
                         <segue destination="K8f-gN-CBh" kind="relationship" relationship="viewControllers" id="QSS-1T-TPa"/>
+                        <segue destination="6WJ-ew-KBe" kind="relationship" relationship="viewControllers" id="5B5-5j-P9b"/>
+                        <segue destination="wLc-Bw-KMA" kind="relationship" relationship="viewControllers" id="pbs-G4-gQE"/>
+                        <segue destination="eAA-Dj-K2U" kind="relationship" relationship="viewControllers" id="R4a-Zr-k4K"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1IY-NL-st9" userLabel="First Responder" sceneMemberID="firstResponder"/>

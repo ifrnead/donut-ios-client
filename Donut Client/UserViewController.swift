@@ -79,16 +79,13 @@ class UserViewController: UITableViewController {
                     
                     if jsonResponse["id"].exists() {
                         
-                        self?.container?.performBackgroundTask { context in
-                            let user = try? User.findOrCreateUser(with: jsonResponse, in: context)
-                            try? context.save()
-                            
-                            DispatchQueue.main.async {
-                                self?.user = user
+                        if let context = self?.container?.viewContext {
+                            context.perform {
+                                self?.user = try? User.findOrCreateUser(with: jsonResponse, in: context)
+                                try? context.save()
                             }
-                            
                         }
-                        
+                                                
                     } else {
                         
                         // nao peguei os dados por algum motivo
