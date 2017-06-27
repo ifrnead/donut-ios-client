@@ -17,7 +17,7 @@ class LoginViewController: UITableViewController, UITextFieldDelegate {
     
     private struct Constants {
     
-        static let serverPrefix: String = "http://10.123.1.128:3000"
+        static let serverPrefix: String = "http://localhost:3000"
         static let loginService: String = "\(serverPrefix)/api/auth"
         
         static let defaultsTokenKey: String = "tokenKey"

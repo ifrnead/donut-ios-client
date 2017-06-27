@@ -18,7 +18,7 @@ class UserViewController: UITableViewController {
     
     private struct Constants {
         
-        static let serverPrefix: String = "http://10.123.1.128:3000"
+        static let serverPrefix: String = "http://localhost:3000"
         static let myUserInfoService: String = "\(serverPrefix)/api/users/me"
         static let suapPrefix: String = "http://suap.ifrn.edu.br"
         
@@ -147,10 +147,6 @@ class UserViewController: UITableViewController {
         performSegue(withIdentifier: Constants.segueToLoginViewController, sender: self)
     }
     
-    // MARK: - CoreData
-    
-    var container: NSPersistentContainer? = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer
-    
     // MARK: - View Lifecycle
     
     override func viewWillAppear(_ animated: Bool) {
@@ -179,5 +175,9 @@ class UserViewController: UITableViewController {
         }
         
     }
+
+    // MARK: - CoreData
+    
+    var container: NSPersistentContainer? = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer
     
 }

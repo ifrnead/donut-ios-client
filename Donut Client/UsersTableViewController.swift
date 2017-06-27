@@ -18,9 +18,8 @@ class UsersTableViewController: FetchedResultsTableViewController {
     
     private struct Constants {
         
-        static let serverPrefix: String = "http://10.123.1.128:3000"
+        static let serverPrefix: String = "http://localhost:3000"
         static let listUsersService: String = "\(serverPrefix)/api/users"
-        static let suapPrefix: String = "http://suap.ifrn.edu.br"
         
         static let defaultsTokenKey: String = "tokenKey"
         
@@ -34,15 +33,19 @@ class UsersTableViewController: FetchedResultsTableViewController {
     
     // MARK: - Actions
     
-    
+    @IBAction func reload(_ sender: UIRefreshControl) {
+        
+        requestUsersIfAlreadyAuthenticated()
+        
+    }
     
     // MARK: - Model
     
-    private var users: [User] = []
+
     
     // MARK: - Network
     
-    private func requestUsers(with token: String) {
+    private func requestUsersAsync(with token: String) {
         
         let headers: HTTPHeaders = [
             "Authorization": "Token \(token)",
@@ -58,12 +61,22 @@ class UsersTableViewController: FetchedResultsTableViewController {
                 switch response.result {
                     
                 case .success(let value):
-                    
-                    debugPrint("Response: \(value)")
-                    
+
                     let jsonResponse = JSON(value)
                     
-                    print(jsonResponse)
+                    self?.container?.performBackgroundTask { context in
+                        for (index, jsonObject):(String, JSON) in jsonResponse {
+                            print("Index: \(index)")
+                            print("Json: \(jsonObject)")
+                            _ = try? User.findOrCreateUser(with: jsonObject, in: context)
+                        }
+                        try? context.save()
+                        
+                        DispatchQueue.main.async {
+                            self?.tableView.reloadData()
+                            self?.refreshControl?.endRefreshing()
+                        }
+                    }
                     
                 case .failure(let error):
                     
@@ -87,36 +100,46 @@ class UsersTableViewController: FetchedResultsTableViewController {
         return (token != nil) ? true : false
     }
     
-    // MARK: - CoreData
-    
-    var container: NSPersistentContainer? = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer
+    private func requestUsersIfAlreadyAuthenticated() {
+        if isAuthenticated {
+            requestUsersAsync(with: token!)
+        }
+    }
     
     // MARK: - View Lifecycle
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if isAuthenticated {
-            requestUsers(with: token!)
-        }
+        requestUsersIfAlreadyAuthenticated()
         
-        updateUI()
+        updateFetchedResultsController()
         
     }
     
+    // MARK: - CoreData
+    
+    var container: NSPersistentContainer? = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer
     
     // MARK: - UITableViewDataSource
     
     var fetchedResultsController: NSFetchedResultsController<User>?
     
-    private func updateUI() {
+    private func updateFetchedResultsController() {
+        
         if let context = container?.viewContext, isAuthenticated {
+            
             let request: NSFetchRequest<User> = User.fetchRequest()
-            request.sortDescriptors = [NSSortDescriptor(
-                key: "name",
-                ascending: true,
-                selector: #selector(NSString.localizedCaseInsensitiveCompare(_:))
-                )]
+            
+            // request.predicate ...
+            
+            request.sortDescriptors = [
+                NSSortDescriptor(
+                    key: "name",
+                    ascending: true,
+                    selector: #selector(NSString.localizedCaseInsensitiveCompare(_:))
+                )
+            ]
             
             fetchedResultsController = NSFetchedResultsController<User>(
                 fetchRequest: request,
@@ -124,9 +147,13 @@ class UsersTableViewController: FetchedResultsTableViewController {
                 sectionNameKeyPath: nil,
                 cacheName: nil
             )
+            
             fetchedResultsController?.delegate = self
+            
             try? fetchedResultsController?.performFetch()
+            
             tableView.reloadData()
+            
         }
     }
 
