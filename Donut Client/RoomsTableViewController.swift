@@ -18,11 +18,6 @@ class RoomsTableViewController: FetchedResultsTableViewController {
     
     private struct Constants {
         
-        static let serverPrefix: String = "http://localhost:3000"
-        static let listRoomsService: String = "\(serverPrefix)/api/rooms"
-        
-        static let defaultsTokenKey: String = "tokenKey"
-        
         static let tableViewRoomCellIdentifier: String = "Room Cell"
         
     }
@@ -53,7 +48,7 @@ class RoomsTableViewController: FetchedResultsTableViewController {
             "Accept": "application/json"
         ]
         
-        Alamofire.request(Constants.listRoomsService,
+        Alamofire.request(DonutServer.Constants.listRoomsService,
                           method: .get,
                           headers: headers)
             .validate(contentType: ["application/json"])
@@ -93,17 +88,9 @@ class RoomsTableViewController: FetchedResultsTableViewController {
     
     // MARK: - Private Implementation
     
-    private var token: String? {
-        return UserDefaults.standard.string(forKey: Constants.defaultsTokenKey)
-    }
-    
-    private var isAuthenticated: Bool {
-        return (token != nil) ? true : false
-    }
-    
     private func requestRoomsIfAlreadyAuthenticated() {
-        if isAuthenticated {
-            requestRoomsAsync(with: token!)
+        if DonutServer.isAuthenticated {
+            requestRoomsAsync(with: DonutServer.token!)
         }
     }
     
@@ -122,13 +109,11 @@ class RoomsTableViewController: FetchedResultsTableViewController {
     
     var container: NSPersistentContainer? = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer
     
-    // MARK: - UITableViewDataSource
-    
     var fetchedResultsController: NSFetchedResultsController<Room>?
     
     private func updateFetchedResultsController() {
         
-        if let context = container?.viewContext, isAuthenticated {
+        if let context = container?.viewContext, DonutServer.isAuthenticated {
             
             let request: NSFetchRequest<Room> = Room.fetchRequest()
             
