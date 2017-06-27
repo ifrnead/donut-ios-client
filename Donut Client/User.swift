@@ -16,7 +16,9 @@ class User: NSManagedObject {
         
         let request: NSFetchRequest<User> = User.fetchRequest()
         
-        request.predicate = NSPredicate(format: "id = %d", id)
+        request.predicate = NSPredicate(
+            format: "id = %d", id
+        )
         
         do {
             let matches = try context.fetch(request)
@@ -35,7 +37,10 @@ class User: NSManagedObject {
         
         let request: NSFetchRequest<User> = User.fetchRequest()
         
-        request.predicate = NSPredicate(format: "id = %d", json["id"].intValue)
+        request.predicate = NSPredicate(
+            format: "id = %d",
+            json["id"].intValue
+        )
         
         let user: User
         

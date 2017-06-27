@@ -84,7 +84,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NjU-qg-TK2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2754.4000000000001" y="6.746626686656672"/>
+            <point key="canvasLocation" x="-2756" y="40"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="aKU-7g-BXl">
@@ -104,7 +104,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1IY-NL-st9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3945" y="-1546"/>
+            <point key="canvasLocation" x="-3943" y="-1633"/>
         </scene>
         <!--Users-->
         <scene sceneID="dBu-kb-90t">
@@ -140,6 +140,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Users" id="F02-ig-Q5R"/>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="1ab-qs-vU4">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <connections>
                             <action selector="reload:" destination="R7V-Jv-8Xm" eventType="valueChanged" id="xAN-Qj-n4T"/>
@@ -148,23 +149,32 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yZU-b2-pP6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-5170" y="7"/>
+            <point key="canvasLocation" x="-5171" y="40"/>
         </scene>
         <!--Rooms-->
         <scene sceneID="nxg-9K-gZX">
             <objects>
-                <tableViewController id="NpI-t4-Dfb" sceneMemberID="viewController">
+                <tableViewController id="NpI-t4-Dfb" customClass="RoomsTableViewController" customModule="Donut_Client" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="yu6-aN-kdW">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="2cC-Ti-8zy">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Room Cell" textLabel="i1h-xx-vNj" style="IBUITableViewCellStyleDefault" id="2cC-Ti-8zy">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2cC-Ti-8zy" id="xgU-hL-1J3">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="i1h-xx-vNj">
+                                            <rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
@@ -174,10 +184,16 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Rooms" id="rHn-fW-XFq"/>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="HiZ-9h-Nrj">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <connections>
+                            <action selector="reload:" destination="NpI-t4-Dfb" eventType="valueChanged" id="h85-4u-Nnl"/>
+                        </connections>
+                    </refreshControl>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JaB-aE-CFl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-4327" y="7"/>
+            <point key="canvasLocation" x="-4328" y="40"/>
         </scene>
         <!--Chats-->
         <scene sceneID="1gy-T6-HhB">
@@ -188,7 +204,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="22t-7q-3aa">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Chat Cell" id="22t-7q-3aa">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="22t-7q-3aa" id="T5r-WU-6fl">
@@ -206,7 +222,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9SJ-wR-SS7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3538" y="7"/>
+            <point key="canvasLocation" x="-3539" y="40"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="WjA-YJ-tMJ">
@@ -228,7 +244,7 @@
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use your SUAP-ID to authenticate" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YOc-PB-FfL">
                                                     <rect key="frame" x="8" y="8" width="359" height="101"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="thin" pointSize="24"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -353,7 +369,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="03B-HH-LQp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1903.2" y="6.746626686656672"/>
+            <point key="canvasLocation" x="-2040" y="40"/>
         </scene>
         <!--User-->
         <scene sceneID="VHA-f9-hG0">
@@ -372,7 +388,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uB8-tO-se1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2753" y="-787"/>
+            <point key="canvasLocation" x="-2755" y="-787"/>
         </scene>
         <!--Chats-->
         <scene sceneID="S8c-tq-IHS">
