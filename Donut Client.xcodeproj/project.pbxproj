@@ -109,7 +109,6 @@
 		9D5D4D661EE76A5A008CC840 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				9DC835F71EEAC2B200CE2581 /* FetchedResultsTableViewController.swift */,
 				9D5D4D511EE76A34008CC840 /* AppDelegate.swift */,
 				9D5D4D5B1EE76A34008CC840 /* Assets.xcassets */,
 				9D5D4D5D1EE76A34008CC840 /* LaunchScreen.storyboard */,
@@ -124,6 +123,7 @@
 				9DC835F51EEABD5F00CE2581 /* User.swift */,
 				9D5D4D581EE76A34008CC840 /* Model.xcdatamodeld */,
 				9DB425431F03104A00A25B74 /* Room.swift */,
+				9DC835F71EEAC2B200CE2581 /* FetchedResultsTableViewController.swift */,
 			);
 			name = CoreData;
 			sourceTree = "<group>";

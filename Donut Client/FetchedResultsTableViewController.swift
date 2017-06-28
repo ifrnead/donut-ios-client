@@ -9,8 +9,8 @@
 import UIKit
 import CoreData
 
-class FetchedResultsTableViewController: UITableViewController, NSFetchedResultsControllerDelegate
-{
+class FetchedResultsTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
+    
     public func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.beginUpdates()
     }
@@ -40,4 +40,5 @@ class FetchedResultsTableViewController: UITableViewController, NSFetchedResults
     public func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.endUpdates()
     }
+    
 }
