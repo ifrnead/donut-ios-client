@@ -13,6 +13,7 @@ struct DonutServer {
     
     struct Constants {
         static let serverPrefix: String = "http://localhost:3000"
+        static let listUsersService: String = "\(serverPrefix)/api/users"
         static let listRoomsService: String = "\(serverPrefix)/api/rooms"
         
         static let defaultsTokenKey: String = "tokenKey"
@@ -26,7 +27,5 @@ struct DonutServer {
     static var isAuthenticated: Bool {
         return (token != nil) ? true : false
     }
-
-    
     
 }

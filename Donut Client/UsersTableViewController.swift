@@ -18,11 +18,6 @@ class UsersTableViewController: FetchedResultsTableViewController {
     
     private struct Constants {
         
-        static let serverPrefix: String = "http://localhost:3000"
-        static let listUsersService: String = "\(serverPrefix)/api/users"
-        
-        static let defaultsTokenKey: String = "tokenKey"
-        
         static let tableViewUserCellIdentifier: String = "User Cell"
         
     }
@@ -52,7 +47,7 @@ class UsersTableViewController: FetchedResultsTableViewController {
             "Accept": "application/json"
         ]
         
-        Alamofire.request(Constants.listUsersService,
+        Alamofire.request(DonutServer.Constants.listUsersService,
                           method: .get,
                           headers: headers)
             .validate(contentType: ["application/json"])
@@ -92,17 +87,9 @@ class UsersTableViewController: FetchedResultsTableViewController {
     
     // MARK: - Private Implementation
     
-    private var token: String? {
-        return UserDefaults.standard.string(forKey: Constants.defaultsTokenKey)
-    }
-    
-    private var isAuthenticated: Bool {
-        return (token != nil) ? true : false
-    }
-    
     private func requestUsersIfAlreadyAuthenticated() {
-        if isAuthenticated {
-            requestUsersAsync(with: token!)
+        if DonutServer.isAuthenticated {
+            requestUsersAsync(with: DonutServer.token!)
         }
     }
     
@@ -121,13 +108,11 @@ class UsersTableViewController: FetchedResultsTableViewController {
     
     var container: NSPersistentContainer? = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer
     
-    // MARK: - UITableViewDataSource
-    
     var fetchedResultsController: NSFetchedResultsController<User>?
     
     private func updateFetchedResultsController() {
         
-        if let context = container?.viewContext, isAuthenticated {
+        if let context = container?.viewContext, DonutServer.isAuthenticated {
             
             let request: NSFetchRequest<User> = User.fetchRequest()
             
