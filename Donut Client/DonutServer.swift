@@ -13,6 +13,7 @@ struct DonutServer {
     
     struct Constants {
         static let serverPrefix: String = "http://localhost:3000"
+        static let loginService: String = "\(serverPrefix)/api/auth"
         static let listUsersService: String = "\(serverPrefix)/api/users"
         static let listRoomsService: String = "\(serverPrefix)/api/rooms"
         static let myUserInfoService: String = "\(serverPrefix)/api/users/me"

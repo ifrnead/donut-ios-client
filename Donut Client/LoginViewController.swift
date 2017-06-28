@@ -16,11 +16,8 @@ class LoginViewController: UITableViewController, UITextFieldDelegate {
     // MARK: - Constants
     
     private struct Constants {
-    
-        static let serverPrefix: String = "http://localhost:3000"
-        static let loginService: String = "\(serverPrefix)/api/auth"
-        
-        static let defaultsTokenKey: String = "tokenKey"
+
+        // put any constants here
         
     }
     
@@ -46,9 +43,10 @@ class LoginViewController: UITableViewController, UITextFieldDelegate {
     
     // MARK: - Model
     
+    // FIXME: this should be on DonutServer struct
     private var token: String? {
         didSet {
-            UserDefaults.standard.set(token, forKey: Constants.defaultsTokenKey)
+            UserDefaults.standard.set(token, forKey: DonutServer.Constants.defaultsTokenKey)
             if token != nil {
                 presentingViewController?.dismiss(animated: true, completion: nil)
             } else {
@@ -70,7 +68,7 @@ class LoginViewController: UITableViewController, UITextFieldDelegate {
                 ]
             ]
             
-            Alamofire.request(Constants.loginService,
+            Alamofire.request(DonutServer.Constants.loginService,
                               method: .post,
                               parameters: parameters,
                               encoding: JSONEncoding.default)
