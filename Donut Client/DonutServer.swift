@@ -15,8 +15,12 @@ struct DonutServer {
         static let serverPrefix: String = "http://localhost:3000"
         static let listUsersService: String = "\(serverPrefix)/api/users"
         static let listRoomsService: String = "\(serverPrefix)/api/rooms"
+        static let myUserInfoService: String = "\(serverPrefix)/api/users/me"
+        
+        static let suapPrefix: String = "http://suap.ifrn.edu.br"
         
         static let defaultsTokenKey: String = "tokenKey"
+        static let defaultsUserIdKey: String = "userIdKey"
 
     }
     
@@ -27,5 +31,15 @@ struct DonutServer {
     static var isAuthenticated: Bool {
         return (token != nil) ? true : false
     }
+    
+    static var userId: Int? {
+        get {
+            return UserDefaults.standard.integer(forKey: Constants.defaultsUserIdKey)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: Constants.defaultsUserIdKey)
+        }
+    }
+
     
 }

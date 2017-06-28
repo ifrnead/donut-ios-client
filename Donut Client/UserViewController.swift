@@ -18,14 +18,7 @@ class UserViewController: UITableViewController {
     
     private struct Constants {
         
-        static let serverPrefix: String = "http://localhost:3000"
-        static let myUserInfoService: String = "\(serverPrefix)/api/users/me"
-        static let suapPrefix: String = "http://suap.ifrn.edu.br"
-        
         static let segueToLoginViewController: String = "Segue To LoginViewController"
-        
-        static let defaultsTokenKey: String = "tokenKey"
-        static let defaultsUserIdKey: String = "userIdKey"
         
     }
 
@@ -46,7 +39,7 @@ class UserViewController: UITableViewController {
     private var user: User? {
         didSet {
             if let id = user?.id {
-                userId = Int(id)
+                DonutServer.userId = Int(id)
             }
             if user != nil {
                 updateUI()
@@ -63,7 +56,7 @@ class UserViewController: UITableViewController {
             "Accept": "application/json"
         ]
         
-        Alamofire.request(Constants.myUserInfoService,
+        Alamofire.request(DonutServer.Constants.myUserInfoService,
                           method: .get,
                           headers: headers)
             .validate(contentType: ["application/json"])
@@ -106,23 +99,6 @@ class UserViewController: UITableViewController {
     
     // MARK: - Private Implementation
     
-    private var token: String? {
-        return UserDefaults.standard.string(forKey: Constants.defaultsTokenKey)
-    }
-    
-    private var isAuthenticated: Bool {
-        return (token != nil) ? true : false
-    }
-    
-    private var userId: Int? {
-        get {
-            return UserDefaults.standard.integer(forKey: Constants.defaultsUserIdKey)
-        }
-        set {
-            UserDefaults.standard.set(newValue, forKey: Constants.defaultsUserIdKey)
-        }
-    }
-    
     private func updateUI() {
         
         if let name = user?.name {
@@ -134,13 +110,36 @@ class UserViewController: UITableViewController {
         }
         
         if let picUrl = user?.url_profile_pic {
-            let suapUrl = Constants.suapPrefix
+            let suapUrl = DonutServer.Constants.suapPrefix
             let url = URL(string: suapUrl.appending(picUrl))
             let data = try? Data(contentsOf: url!)
             let image = UIImage(data: data!)
             userImage.image = image!
         }
                 
+    }
+    
+    private func requestMyUserInfoIfAlreadyAuthenticated() {
+        
+        if DonutServer.isAuthenticated {
+            requestMyUserInfoAsync(with: DonutServer.token!)
+        } else {
+            performSegueToLoginViewController()
+        }
+        
+    }
+    
+    private func loadMyUserInfoIfIHaveUserId() {
+
+        if let id = DonutServer.userId {
+            if let context = container?.viewContext {
+                self.user = User.findUserById(with: id, in: context)
+            }
+            requestMyUserInfoIfAlreadyAuthenticated()
+        } else {
+            requestMyUserInfoIfAlreadyAuthenticated()
+        }
+
     }
     
     private func performSegueToLoginViewController() {
@@ -152,27 +151,7 @@ class UserViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if isAuthenticated {
-            
-            if let id = userId {
-                
-                if let context = container?.viewContext {
-                    self.user = User.findUserById(with: id, in: context)
-                }
-                
-                requestMyUserInfoAsync(with: token!)
-                
-            } else {
-                
-                requestMyUserInfoAsync(with: token!)
-                
-            }
-            
-        } else {
-            
-            performSegueToLoginViewController()
-            
-        }
+        loadMyUserInfoIfIHaveUserId()
         
     }
 
@@ -181,3 +160,4 @@ class UserViewController: UITableViewController {
     var container: NSPersistentContainer? = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer
     
 }
+

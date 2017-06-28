@@ -185,6 +185,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Rooms" id="rHn-fW-XFq"/>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="HiZ-9h-Nrj">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <connections>
                             <action selector="reload:" destination="NpI-t4-Dfb" eventType="valueChanged" id="h85-4u-Nnl"/>
@@ -369,7 +370,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="03B-HH-LQp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2040" y="40"/>
+            <point key="canvasLocation" x="-1882" y="39"/>
         </scene>
         <!--User-->
         <scene sceneID="VHA-f9-hG0">
