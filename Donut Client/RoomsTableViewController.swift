@@ -69,6 +69,7 @@ class RoomsTableViewController: FetchedResultsTableViewController {
                         try? context.save()
                         
                         DispatchQueue.main.async {
+                            self?.updateFetchedResultsController()
                             self?.tableView.reloadData()
                             self?.refreshControl?.endRefreshing()
                         }
