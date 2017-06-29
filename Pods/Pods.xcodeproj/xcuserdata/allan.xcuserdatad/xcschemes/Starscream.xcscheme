@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '300981269A385949ED2F6EC0C4946A98'
-               BlueprintName = 'Pods-Donut Client'
+               BlueprintIdentifier = '0F42ECB7DFFA08681077FE3FE1C2C8CA'
+               BlueprintName = 'Starscream'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'Pods-Donut Client.framework'>
+               BuildableName = 'Starscream.framework'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

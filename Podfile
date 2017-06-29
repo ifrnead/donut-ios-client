@@ -7,5 +7,6 @@ target 'Donut Client' do
   pod 'SwiftyJSON', '~> 3.1'
   pod 'Alamofire', '~> 4.4'
   pod 'GoogleAnalytics'
+  pod 'ActionCableClient'
 
 end

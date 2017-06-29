@@ -1,18 +1,24 @@
 PODS:
+  - ActionCableClient (0.2.3):
+    - Starscream (~> 2.0.0)
   - Alamofire (4.5.0)
   - GoogleAnalytics (3.17.0)
+  - Starscream (2.0.4)
   - SwiftyJSON (3.1.4)
 
 DEPENDENCIES:
+  - ActionCableClient
   - Alamofire (~> 4.4)
   - GoogleAnalytics
   - SwiftyJSON (~> 3.1)
 
 SPEC CHECKSUMS:
+  ActionCableClient: c8a466410d31bfa14e7a9c209b539c1e2d026a5f
   Alamofire: f28cdffd29de33a7bfa022cbd63ae95a27fae140
   GoogleAnalytics: f42cc53a87a51fe94334821868d9c8481ff47a7b
+  Starscream: df5974ee928b157c8eda8af8de7c620276b7dfcc
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: 19c783432e2022660d91e6813a7453d3ede080f0
+PODFILE CHECKSUM: f251b37ea3519e8741b7adc8ff669d19164cccea
 
 COCOAPODS: 1.2.1
