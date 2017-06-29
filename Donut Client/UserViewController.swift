@@ -77,7 +77,9 @@ class UserViewController: UITableViewController {
                             try? context.save()
                             
                             DispatchQueue.main.async {
-                                self?.user = user
+                                if let context = self?.container?.viewContext {
+                                    self?.user = User.findUserById(with: Int((user?.id)!), in: context)
+                                }
                             }
                         }
                         
@@ -103,20 +105,18 @@ class UserViewController: UITableViewController {
     
     private func updateUI() {
         
-        if let name = user?.name {
-            nameTextField.text = name
-        }
-        
-        if let category = user?.category {
-            categoryTextField.text = category
-        }
+        nameTextField.text = user?.name!
+        categoryTextField.text = user?.category!
         
         if let picUrl = user?.url_profile_pic {
             let suapUrl = DonutServer.Constants.suapPrefix
-            let url = URL(string: suapUrl.appending(picUrl))
-            let data = try? Data(contentsOf: url!)
-            let image = UIImage(data: data!)
-            userImage.image = image!
+            if let url = URL(string: suapUrl.appending(picUrl)) {
+                if let data = try? Data(contentsOf: url) {
+                    userImage.image = UIImage(data: data)
+                }
+            }
+        } else {
+            userImage.image = nil
         }
                 
     }
