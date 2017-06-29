@@ -1,6 +1,6 @@
 //
 //  FetchedResultsTableViewController.swift
-//  SmashtagA5
+//  This code is from cs193p
 //
 //  Created by Paul Hegarty on 2/3/17.
 //  Copyright © 2017 Stanford University. All rights reserved.
