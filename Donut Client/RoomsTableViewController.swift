@@ -20,6 +20,8 @@ class RoomsTableViewController: FetchedResultsTableViewController {
         
         static let tableViewRoomCellIdentifier: String = "Room Cell"
         
+        static let segueToMessagesTableViewController: String = "Segue To MessagesTableViewController"
+        
     }
     
     // MARK: - Outlets
@@ -61,16 +63,13 @@ class RoomsTableViewController: FetchedResultsTableViewController {
                     let jsonResponse = JSON(value)
                     
                     self?.container?.performBackgroundTask { context in
-                        for (index, jsonObject):(String, JSON) in jsonResponse {
-                            print("Index: \(index)")
+                        for (_, jsonObject):(String, JSON) in jsonResponse {
                             print("Json: \(jsonObject)")
                             _ = try? Room.findOrCreateRoom(with: jsonObject, in: context)
                         }
                         try? context.save()
                         
                         DispatchQueue.main.async {
-                            self?.updateFetchedResultsController()
-                            self?.tableView.reloadData()
                             self?.refreshControl?.endRefreshing()
                         }
                     }
@@ -102,9 +101,33 @@ class RoomsTableViewController: FetchedResultsTableViewController {
         
         requestRoomsIfAlreadyAuthenticated()
         
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
         updateFetchedResultsController()
         
     }
+    
+    // MARK: - Navigation
+    
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if let identifier = segue.identifier {
+//            switch identifier {
+//            case Constants.segueToMessagesTableViewController:
+//                // prepare MessagesTableViewController
+//                if let messagesTableViewController = segue.destination as? MessagesTableViewController {
+//                    if let cell = sender as? UITableViewCell {
+//                        let object = // como pegar o objeto que esta selecionado no momento?
+//                    }
+//                    messagesTableViewController.room = // room
+//                }
+//            default: break
+//                // do nothing
+//            }
+//        }
+//    }
     
     // MARK: - CoreData
     
@@ -114,7 +137,9 @@ class RoomsTableViewController: FetchedResultsTableViewController {
     
     private func updateFetchedResultsController() {
         
-        if let context = container?.viewContext, DonutServer.isAuthenticated {
+        if let context = container?.viewContext {
+            
+            context.automaticallyMergesChangesFromParent = true
             
             let request: NSFetchRequest<Room> = Room.fetchRequest()
             
