@@ -60,16 +60,13 @@ class UsersTableViewController: FetchedResultsTableViewController {
                     let jsonResponse = JSON(value)
                     
                     self?.container?.performBackgroundTask { context in
-                        for (index, jsonObject):(String, JSON) in jsonResponse {
-                            print("Index: \(index)")
+                        for (_, jsonObject):(String, JSON) in jsonResponse {
                             print("Json: \(jsonObject)")
                             _ = try? User.findOrCreateUser(with: jsonObject, in: context)
                         }
                         try? context.save()
                         
                         DispatchQueue.main.async {
-                            self?.updateFetchedResultsController()
-                            self?.tableView.reloadData()
                             self?.refreshControl?.endRefreshing()
                         }
                     }
@@ -101,6 +98,11 @@ class UsersTableViewController: FetchedResultsTableViewController {
         
         requestUsersIfAlreadyAuthenticated()
         
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
         updateFetchedResultsController()
         
     }
@@ -113,7 +115,9 @@ class UsersTableViewController: FetchedResultsTableViewController {
     
     private func updateFetchedResultsController() {
         
-        if let context = container?.viewContext, DonutServer.isAuthenticated {
+        if let context = container?.viewContext {
+            
+            context.automaticallyMergesChangesFromParent = true
             
             let request: NSFetchRequest<User> = User.fetchRequest()
             
