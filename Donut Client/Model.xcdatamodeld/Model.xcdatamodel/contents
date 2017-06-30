@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="12141" systemVersion="16F73" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Message" representedClassName="Message" syncable="YES" codeGenerationType="class"/>
     <entity name="Room" representedClassName=".Room" syncable="YES" codeGenerationType="category">
         <attribute name="created_at" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="curricular_component" optional="YES" attributeType="String" syncable="YES"/>
@@ -27,7 +28,8 @@
         <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="User" positionX="-4482" positionY="-18" width="128" height="253"/>
         <element name="Room" positionX="-4257" positionY="47" width="128" height="163"/>
+        <element name="User" positionX="-4545" positionY="53" width="128" height="253"/>
+        <element name="Message" positionX="-4401" positionY="153" width="128" height="43"/>
     </elements>
 </model>
