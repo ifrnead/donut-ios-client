@@ -36,16 +36,7 @@ class UserViewController: UITableViewController {
     
     // MARK: - Model
     
-    private var user: User? {
-        didSet {
-            if let id = user?.id {
-                DonutServer.userId = Int(id)
-            }
-            if user != nil {
-                updateUI()
-            }
-        }
-    }
+    private var user: User? { didSet { updateUI() } }
     
     // MARK: - Network
     
@@ -75,12 +66,14 @@ class UserViewController: UITableViewController {
                         self?.container?.performBackgroundTask { context in
                             let user = try? User.findOrCreateUser(with: jsonResponse, in: context)
                             try? context.save()
+                            let userId = Int((user?.id)!)
+
+                            DonutServer.userId = userId
                             
                             DispatchQueue.main.async {
-                                if let context = self?.container?.viewContext {
-                                    self?.user = User.findUserById(with: Int((user?.id)!), in: context)
-                                }
+                                self?.loadUser(with: userId)
                             }
+                            
                         }
                         
                     } else {
@@ -121,6 +114,14 @@ class UserViewController: UITableViewController {
                 
     }
     
+    private func loadUser(with id: Int) {
+        if let context = container?.viewContext {
+            context.perform {
+                self.user = User.findUserById(with: id, in: context)
+            }
+        }
+    }
+    
     private func requestMyUserInfoIfAlreadyAuthenticated() {
         
         if DonutServer.isAuthenticated {
@@ -134,9 +135,7 @@ class UserViewController: UITableViewController {
     private func loadMyUserInfoIfIHaveUserId() {
 
         if let id = DonutServer.userId {
-            if let context = container?.viewContext {
-                self.user = User.findUserById(with: id, in: context)
-            }
+            loadUser(with: id)
             requestMyUserInfoIfAlreadyAuthenticated()
         } else {
             requestMyUserInfoIfAlreadyAuthenticated()
