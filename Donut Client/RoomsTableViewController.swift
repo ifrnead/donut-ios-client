@@ -112,22 +112,23 @@ class RoomsTableViewController: FetchedResultsTableViewController {
     
     // MARK: - Navigation
     
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if let identifier = segue.identifier {
-//            switch identifier {
-//            case Constants.segueToMessagesTableViewController:
-//                // prepare MessagesTableViewController
-//                if let messagesTableViewController = segue.destination as? MessagesTableViewController {
-//                    if let cell = sender as? UITableViewCell {
-//                        let object = // como pegar o objeto que esta selecionado no momento?
-//                    }
-//                    messagesTableViewController.room = // room
-//                }
-//            default: break
-//                // do nothing
-//            }
-//        }
-//    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let identifier = segue.identifier {
+            switch identifier {
+            case Constants.segueToMessagesTableViewController:
+                // prepare MessagesTableViewController
+                if let messagesTableViewController = segue.destination as? MessagesTableViewController {
+                    if let indexPath = tableView.indexPathForSelectedRow {
+                        if let room = fetchedResultsController?.object(at: indexPath) {
+                            messagesTableViewController.room = room
+                        }
+                    }
+                }
+            default: break
+                // do nothing
+            }
+        }
+    }
     
     // MARK: - CoreData
     
