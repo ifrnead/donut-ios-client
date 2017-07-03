@@ -236,6 +236,27 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <toolbar key="tableFooterView" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="VEF-qQ-bde">
+                            <rect key="frame" x="0.0" y="72" width="375" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                            <items>
+                                <barButtonItem style="plain" id="ic9-U3-bZ8">
+                                    <textField key="customView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Message" textAlignment="natural" minimumFontSize="17" id="S4p-R6-s7S">
+                                        <rect key="frame" x="16" y="7" width="296" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="send" enablesReturnKeyAutomatically="YES"/>
+                                    </textField>
+                                </barButtonItem>
+                                <barButtonItem systemItem="flexibleSpace" id="eee-qd-qaP"/>
+                                <barButtonItem title="Send" style="plain" id="TL9-jn-ylx">
+                                    <connections>
+                                        <action selector="sendMessage:" destination="aI4-9O-PeB" id="Sxu-2P-nbK"/>
+                                    </connections>
+                                </barButtonItem>
+                            </items>
+                        </toolbar>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Message Cell" textLabel="iOz-MO-m0D" style="IBUITableViewCellStyleDefault" id="jJC-HK-hlI">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
@@ -260,10 +281,13 @@
                             <outlet property="delegate" destination="aI4-9O-PeB" id="PHG-u3-DYE"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="messageTextField" destination="S4p-R6-s7S" id="for-YI-GCU"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CbI-vc-w55" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-4327" y="826"/>
+            <point key="canvasLocation" x="-4327.1999999999998" y="825.33733133433293"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="WjA-YJ-tMJ">
@@ -416,7 +440,7 @@
         <scene sceneID="VHA-f9-hG0">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="eAA-Dj-K2U" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="User" id="lAR-nQ-bWr"/>
+                    <tabBarItem key="tabBarItem" title="User" image="ic_account_box" id="lAR-nQ-bWr"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Oc9-29-AAe">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -435,7 +459,7 @@
         <scene sceneID="S8c-tq-IHS">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="wLc-Bw-KMA" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Chats" id="Ski-Ow-XDV"/>
+                    <tabBarItem key="tabBarItem" title="Chats" image="ic_question_answer" id="Ski-Ow-XDV"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="u0g-mA-2aD">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -454,7 +478,7 @@
         <scene sceneID="6Yb-oU-1hH">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="6WJ-ew-KBe" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Rooms" id="Ypt-zP-DRP"/>
+                    <tabBarItem key="tabBarItem" title="Rooms" image="ic_chat" id="Ypt-zP-DRP"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="0Bb-4V-tGS">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -473,7 +497,7 @@
         <scene sceneID="DjW-6z-XEs">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="K8f-gN-CBh" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Users" id="n4f-Nb-9eq"/>
+                    <tabBarItem key="tabBarItem" title="Users" image="ic_people" id="n4f-Nb-9eq"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="3pG-p5-Dau">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -489,4 +513,10 @@
             <point key="canvasLocation" x="-5170" y="-785"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="ic_account_box" width="24" height="24"/>
+        <image name="ic_chat" width="24" height="24"/>
+        <image name="ic_people" width="24" height="24"/>
+        <image name="ic_question_answer" width="24" height="24"/>
+    </resources>
 </document>
