@@ -79,7 +79,7 @@ class LoginViewController: UITableViewController, UITextFieldDelegate {
                         
                     case .success(let value):
                         
-                        debugPrint("Response: \(value)")
+                        debugPrint("RESPONSE: ", value)
                         
                         let jsonResponse = JSON(value)
                         
@@ -95,7 +95,7 @@ class LoginViewController: UITableViewController, UITextFieldDelegate {
                         
                     case .failure(let error):
                         
-                        debugPrint("Error: \(error)")
+                        debugPrint("ERROR: ", error)
                         
                         self?.token = nil
                         

@@ -57,7 +57,7 @@ class UserViewController: UITableViewController {
                     
                 case .success(let value):
                     
-                    debugPrint("Response: \(value)")
+                    debugPrint("RESPONSE: ", value)
                     
                     let jsonResponse = JSON(value)
                     
@@ -84,7 +84,7 @@ class UserViewController: UITableViewController {
                     
                 case .failure(let error):
                     
-                    debugPrint("Error: \(error)")
+                    debugPrint("ERROR: ", error)
                     
                     // servidor deu erro por algum motivo
                     

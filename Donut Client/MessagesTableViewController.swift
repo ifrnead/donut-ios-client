@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
+import CoreData
 import ActionCableClient
 
 
@@ -24,33 +25,38 @@ class MessagesTableViewController: UITableViewController {
     
     // MARK: - Outlets
     
-    
+    @IBOutlet weak var messageTextField: UITextField!
     
     // MARK: - Actions
     
-    
+    @IBAction func sendMessage(_ sender: UIBarButtonItem) {
+        
+        send(text: "teste")
+        
+    }
     
     // MARK: - Model
     
-    var room: Room?
+    var room: Room? {
+        didSet {
+            debugPrint("VIEWCONTROLLER ROOM DIDSET: ", room ?? "Not Setted.")
+        }
+    }
     
-    private var messages: [Dictionary<String, String>]?
+    private var messages: [Message] = []
+    
+    // MARK: - Network
     
     private var client: ActionCableClient!
     
     private var channel: Channel?
     
-    // MARK: - Network
-    
-    
-    
     // MARK: - Private Implementation
     
-    func send(_ sender: Any) {
+    func send(text: String) {
         guard let channel = channel else { return }
         // send message
-        let random = arc4random() % 10
-        if let error = channel.action("send_message", with: ["content": "hello: " + String(random), "room_id": 6]) {
+        if let error = channel.action("send_message", with: ["content": text, "room_id": 1]) {
             print("Error: ", error)
         }
     }
@@ -60,23 +66,46 @@ class MessagesTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        client = ActionCableClient(url: URL(string: "ws://localhost:3000/cable?token=9b6b21494b57303099ff9237bd1776dfbac7bbc6d46adf97b863527f9b53dd2dbf3a54a07edd5da8565cf244ecd940858edf2a17f97594a5e8cabf79ef29a8bf")!)
+        client = ActionCableClient(url: URL(string: "ws://localhost:3000/cable")!)
+        client.headers = [
+            "token": DonutServer.token!
+        ]
         client.connect()
         
-        client.onConnected = {
+        client.onConnected = { [weak self] in
             print("Connected!")
             
-            self.channel = self.client.create("ChatRoomsChannel", identifier: ["room_id": 6])
+            self?.channel = self?.client.create("ChatRoomsChannel",
+                                                identifier: ["room_id": 1],
+                                                autoSubscribe: true,
+                                                bufferActions: true)
             
-            if let channel = self.channel {
-                channel.onReceive = { (JSON : Any?, error : Error?) in
-                    // receive message
-                    if let json = JSON {
-                        print("Received: ", json)
-                    }
+            if let channel = self?.channel {
+                channel.onReceive = { (receivedJson : Any?, error : Error?) in
                     if let error = error {
-                        print("Received: ", error)
+                        print("Error: ", error)
+                        return
                     }
+                    
+                    debugPrint("RESPONSE: ", receivedJson)
+                    
+                    let jsonResponse = JSON(receivedJson)
+                    
+                    self?.container?.performBackgroundTask { context in
+                        for (_, jsonObject):(String, JSON) in jsonResponse {
+                            print("Json: \(jsonObject)")
+                            _ = try? User.findOrCreateUser(with: jsonObject, in: context)
+                        }
+                        try? context.save()
+                        
+                        DispatchQueue.main.async {
+                            self?.refreshControl?.endRefreshing()
+                        }
+                    }
+                    
+//                    self?.messages.append(jsonMessage.dictionaryValue)
+                    self?.tableView.reloadData()
+                    
                 }
                 
                 channel.onSubscribed = {
@@ -95,6 +124,7 @@ class MessagesTableViewController: UITableViewController {
         
         client.onDisconnected = {(error: Error?) in
             print("Disconnected!")
+            print("Error: \(error)")
         }
 
     }
@@ -103,23 +133,25 @@ class MessagesTableViewController: UITableViewController {
     // MARK: - UITableViewController
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        return messages.count
     }
 
-    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.tableViewMessageCellIdentifier, for: indexPath)
+        
+        let messageRow = messages[indexPath.row]
+        
+        debugPrint(messageRow)
+        
         return cell
     }
-    */
+    
+    // MARK: - CoreData
+    
+    var container: NSPersistentContainer? = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer
 
 }

@@ -60,11 +60,12 @@ class RoomsTableViewController: FetchedResultsTableViewController {
                     
                 case .success(let value):
                     
+                    debugPrint("RESPONSE: ", value)
+                    
                     let jsonResponse = JSON(value)
                     
                     self?.container?.performBackgroundTask { context in
                         for (_, jsonObject):(String, JSON) in jsonResponse {
-                            print("Json: \(jsonObject)")
                             _ = try? Room.findOrCreateRoom(with: jsonObject, in: context)
                         }
                         try? context.save()
@@ -76,7 +77,7 @@ class RoomsTableViewController: FetchedResultsTableViewController {
 
                 case .failure(let error):
                     
-                    debugPrint("Error: \(error)")
+                    debugPrint("ERROR: ", error)
                     
                     // servidor deu erro por algum motivo
                     
