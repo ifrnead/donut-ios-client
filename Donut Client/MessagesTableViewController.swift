@@ -13,7 +13,7 @@ import CoreData
 import ActionCableClient
 
 
-class MessagesTableViewController: UITableViewController {
+class MessagesTableViewController: FetchedResultsTableViewController {
 
     // MARK: - Constants
     
@@ -49,9 +49,53 @@ class MessagesTableViewController: UITableViewController {
         }
     }
     
-    private var messages: [Message] = []
+//    private var messages: [Message] = []
     
     // MARK: - Network
+    
+    private func requestMessagesAsync(with token: String) {
+        
+        let headers: HTTPHeaders = [
+            "Authorization": "Token \(token)",
+            "Accept": "application/json"
+        ]
+        let roomIdentifier = String((room?.id)!)
+        Alamofire.request(DonutServer.Constants.listMessagesService.replacingOccurrences(of: ":room_id", with: roomIdentifier),
+                          method: .get,
+                          headers: headers)
+            .validate(contentType: ["application/json"])
+            .responseJSON { [weak self] response in
+                
+                switch response.result {
+                    
+                case .success(let value):
+                    
+                    debugPrint("RESPONSE: ", value)
+                    
+                    let jsonResponse = JSON(value)
+                    
+                    self?.container?.performBackgroundTask { context in
+                        for (_, jsonObject):(String, JSON) in jsonResponse {
+                            _ = try? Message.findOrCreateMessage(with: jsonObject, in: context)
+                        }
+                        try? context.save()
+                        
+//                        DispatchQueue.main.async {
+//                            self?.refreshControl?.endRefreshing()
+//                        }
+                    }
+                    
+                case .failure(let error):
+                    
+                    debugPrint("ERROR: ", error)
+                    
+                    // servidor deu erro por algum motivo
+                    
+                }
+                
+        }
+        
+    }
     
     private var client: ActionCableClient!
     
@@ -59,7 +103,7 @@ class MessagesTableViewController: UITableViewController {
     
     // MARK: - Private Implementation
     
-    func sendMessageWith(text: String) {
+    private func sendMessageWith(text: String) {
         guard let channel = channel else { return }
         // send message
         let roomIdentifier = Int((room?.id)!)
@@ -68,10 +112,13 @@ class MessagesTableViewController: UITableViewController {
         }
     }
     
-    // MARK: - View Lifecycle
+    private func requestMessagesIfAlreadyAuthenticated() {
+        if DonutServer.isAuthenticated {
+            requestMessagesAsync(with: DonutServer.token!)
+        }
+    }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    private func setupActionCable() {
         
         client = ActionCableClient(
             url: URL(string: DonutServer.Constants.actionCableEndPoint)!
@@ -110,7 +157,7 @@ class MessagesTableViewController: UITableViewController {
                                 let message = try? Message.findOrCreateMessage(with: jsonMessage, in: context)
                                 try? context.save()
                                 
-                                self?.messages.append(message!)
+//                                self?.messages.append(message!)
                                 self?.tableView.reloadData()
                             }
                         }
@@ -144,22 +191,46 @@ class MessagesTableViewController: UITableViewController {
 
     }
     
+    // MARK: - View Lifecycle
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        requestMessagesIfAlreadyAuthenticated()
+        
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        updateFetchedResultsController()
+        
+        setupActionCable()
+        
+    }
+    
 
     // MARK: - UITableViewController
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return messages.count
-    }
+//    override func numberOfSections(in tableView: UITableView) -> Int {
+//        return 1
+//    }
+//
+//    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return messages.count
+//    }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.tableViewMessageCellIdentifier, for: indexPath)
         
-        let message = messages[indexPath.row]
-        cell.textLabel?.text = message.content ?? ""
+//        let message = messages[indexPath.row]
+//        cell.textLabel?.text = message.content ?? ""
+        
+        if let message = fetchedResultsController?.object(at: indexPath) {
+            if let content = message.content {
+                cell.textLabel?.text = content
+            }
+        }
         
         return cell
     }
@@ -167,5 +238,74 @@ class MessagesTableViewController: UITableViewController {
     // MARK: - CoreData
     
     var container: NSPersistentContainer? = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer
+    
+    var fetchedResultsController: NSFetchedResultsController<Message>?
+    
+    private func updateFetchedResultsController() {
+        
+        if let context = container?.viewContext {
+            
+            context.automaticallyMergesChangesFromParent = true
+            
+            let request: NSFetchRequest<Message> = Message.fetchRequest()
+            
+            // request.predicate ...
+            
+            request.sortDescriptors = [
+                NSSortDescriptor(
+                    key: "created_at",
+                    ascending: true,
+                    selector: #selector(NSDate.compare(_:))
+                )
+            ]
+            
+            fetchedResultsController = NSFetchedResultsController<Message>(
+                fetchRequest: request,
+                managedObjectContext: context,
+                sectionNameKeyPath: nil,
+                cacheName: nil
+            )
+            
+            fetchedResultsController?.delegate = self
+            
+            try? fetchedResultsController?.performFetch()
+            
+            tableView.reloadData()
+            
+        }
+    }
 
+}
+
+
+extension MessagesTableViewController {
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return fetchedResultsController?.sections?.count ?? 1
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if let sections = fetchedResultsController?.sections, sections.count > 0 {
+            return sections[section].numberOfObjects
+        } else {
+            return 0
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if let sections = fetchedResultsController?.sections, sections.count > 0 {
+            return sections[section].name
+        } else {
+            return nil
+        }
+    }
+    
+    override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+        return fetchedResultsController?.sectionIndexTitles
+    }
+    
+    override func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
+        return fetchedResultsController?.section(forSectionIndexTitle: title, at: index) ?? 0
+    }
+    
 }

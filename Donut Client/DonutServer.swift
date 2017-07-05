@@ -17,6 +17,7 @@ struct DonutServer {
         static let listUsersService: String = "\(serverPrefix)/api/users"
         static let listRoomsService: String = "\(serverPrefix)/api/rooms"
         static let myUserInfoService: String = "\(serverPrefix)/api/users/me"
+        static let listMessagesService: String = "\(serverPrefix)/api/rooms/:room_id/messages"
 
         static let actionCableEndPoint: String = "ws://10.123.1.34:3000/cable"
         static let actionCableChannelClass: String = "ChatRoomsChannel"
