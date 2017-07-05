@@ -29,9 +29,14 @@ class MessagesTableViewController: UITableViewController {
     
     // MARK: - Actions
     
-    @IBAction func sendMessage(_ sender: UIBarButtonItem) {
+    @IBAction func send(_ sender: UIBarButtonItem) {
         
-        send(text: "teste")
+        if let messageText = messageTextField.text {
+            
+            sendMessageWith(text: messageText)
+            messageTextField.text = ""
+            
+        }
         
     }
     
@@ -39,7 +44,8 @@ class MessagesTableViewController: UITableViewController {
     
     var room: Room? {
         didSet {
-            debugPrint("VIEWCONTROLLER ROOM DIDSET: ", room ?? "Not Setted.")
+            title = room?.title
+            debugPrint("ROOM: ", room ?? "Not Setted.")
         }
     }
     
@@ -53,11 +59,12 @@ class MessagesTableViewController: UITableViewController {
     
     // MARK: - Private Implementation
     
-    func send(text: String) {
+    func sendMessageWith(text: String) {
         guard let channel = channel else { return }
         // send message
-        if let error = channel.action("send_message", with: ["content": text, "room_id": 1]) {
-            print("Error: ", error)
+        let roomIdentifier = Int((room?.id)!)
+        if let error = channel.action("send_message", with: ["content": text, "room_id": roomIdentifier]) {
+            debugPrint("ERROR: ", error)
         }
     }
     
@@ -66,7 +73,9 @@ class MessagesTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        client = ActionCableClient(url: URL(string: "ws://localhost:3000/cable")!)
+        client = ActionCableClient(
+            url: URL(string: DonutServer.Constants.actionCableEndPoint)!
+        )
         client.headers = [
             "token": DonutServer.token!
         ]
@@ -75,36 +84,38 @@ class MessagesTableViewController: UITableViewController {
         client.onConnected = { [weak self] in
             print("Connected!")
             
-            self?.channel = self?.client.create("ChatRoomsChannel",
-                                                identifier: ["room_id": 1],
+            let roomIdentifier = Int((self?.room?.id)!)
+            self?.channel = self?.client.create(DonutServer.Constants.actionCableChannelClass,
+                                                identifier: ["room_id": roomIdentifier],
                                                 autoSubscribe: true,
                                                 bufferActions: true)
             
             if let channel = self?.channel {
+                
                 channel.onReceive = { (receivedJson : Any?, error : Error?) in
-                    if let error = error {
-                        print("Error: ", error)
+                    
+                    if error != nil {
+                        debugPrint("ERROR: ", error!)
                         return
                     }
                     
-                    debugPrint("RESPONSE: ", receivedJson)
+                    debugPrint("RESPONSE: ", receivedJson ?? "")
                     
-                    let jsonResponse = JSON(receivedJson)
-                    
-                    self?.container?.performBackgroundTask { context in
-                        for (_, jsonObject):(String, JSON) in jsonResponse {
-                            print("Json: \(jsonObject)")
-                            _ = try? User.findOrCreateUser(with: jsonObject, in: context)
-                        }
-                        try? context.save()
+                    if receivedJson != nil {
                         
-                        DispatchQueue.main.async {
-                            self?.refreshControl?.endRefreshing()
+                        let jsonMessage = JSON(receivedJson!)["message"]
+                        
+                        if let context = self?.container?.viewContext {
+                            context.perform {
+                                let message = try? Message.findOrCreateMessage(with: jsonMessage, in: context)
+                                try? context.save()
+                                
+                                self?.messages.append(message!)
+                                self?.tableView.reloadData()
+                            }
                         }
+                        
                     }
-                    
-//                    self?.messages.append(jsonMessage.dictionaryValue)
-                    self?.tableView.reloadData()
                     
                 }
                 
@@ -124,7 +135,11 @@ class MessagesTableViewController: UITableViewController {
         
         client.onDisconnected = {(error: Error?) in
             print("Disconnected!")
-            print("Error: \(error)")
+            
+            if error != nil {
+                debugPrint("ERROR: ", error!)
+            }
+            
         }
 
     }
@@ -143,9 +158,8 @@ class MessagesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.tableViewMessageCellIdentifier, for: indexPath)
         
-        let messageRow = messages[indexPath.row]
-        
-        debugPrint(messageRow)
+        let message = messages[indexPath.row]
+        cell.textLabel?.text = message.content ?? ""
         
         return cell
     }

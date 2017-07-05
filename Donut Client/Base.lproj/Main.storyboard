@@ -252,7 +252,7 @@
                                 <barButtonItem systemItem="flexibleSpace" id="eee-qd-qaP"/>
                                 <barButtonItem title="Send" style="plain" id="TL9-jn-ylx">
                                     <connections>
-                                        <action selector="sendMessage:" destination="aI4-9O-PeB" id="Sxu-2P-nbK"/>
+                                        <action selector="send:" destination="aI4-9O-PeB" id="4cM-4m-M1h"/>
                                     </connections>
                                 </barButtonItem>
                             </items>
