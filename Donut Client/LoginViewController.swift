@@ -72,26 +72,19 @@ class LoginViewController: UITableViewController, UITextFieldDelegate {
                               method: .post,
                               parameters: parameters,
                               encoding: JSONEncoding.default)
+                .validate(statusCode: 200..<300)
                 .validate(contentType: ["application/json"])
                 .responseJSON { [weak self] response in
                     
                     switch response.result {
-                        
-                    case .success(let value):
-                        
-                        debugPrint("RESPONSE: ", value)
-                        
-                        let jsonResponse = JSON(value)
-                        
-                        if let token = jsonResponse["token"].string {
-                            
-                            self?.token = token
-                            
-                        } else {
-                            
-                            self?.token = nil
 
-                        }
+                    case .success(let data):
+                        
+                        debugPrint("SUCCESS: ", data)
+                        
+                        let json = JSON(data)
+                        
+                        self?.token = json["token"].stringValue
                         
                     case .failure(let error):
                         
