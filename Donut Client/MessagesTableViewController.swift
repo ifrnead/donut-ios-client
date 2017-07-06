@@ -154,7 +154,7 @@ class MessagesTableViewController: FetchedResultsTableViewController {
                         
                         if let context = self?.container?.viewContext {
                             context.perform {
-                                let message = try? Message.findOrCreateMessage(with: jsonMessage, in: context)
+                                _ = try? Message.findOrCreateMessage(with: jsonMessage, in: context)
                                 try? context.save()
                                 
 //                                self?.messages.append(message!)
