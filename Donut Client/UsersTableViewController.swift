@@ -50,19 +50,20 @@ class UsersTableViewController: FetchedResultsTableViewController {
         Alamofire.request(DonutServer.Constants.listUsersService,
                           method: .get,
                           headers: headers)
+            .validate(statusCode: 200..<300)
             .validate(contentType: ["application/json"])
             .responseJSON { [weak self] response in
                 
                 switch response.result {
                     
-                case .success(let value):
+                case .success(let data):
                     
-                    debugPrint("RESPONSE: ", value)
+                    debugPrint("SUCCESS: ", data)
 
-                    let jsonResponse = JSON(value)
+                    let json = JSON(data)
                     
                     self?.container?.performBackgroundTask { context in
-                        for (_, jsonObject):(String, JSON) in jsonResponse {
+                        for (_, jsonObject):(String, JSON) in json {
                             _ = try? User.findOrCreateUser(with: jsonObject, in: context)
                         }
                         try? context.save()
@@ -75,8 +76,6 @@ class UsersTableViewController: FetchedResultsTableViewController {
                 case .failure(let error):
                     
                     debugPrint("ERROR: ", error)
-                    
-                    // servidor deu erro por algum motivo
                     
                 }
                 

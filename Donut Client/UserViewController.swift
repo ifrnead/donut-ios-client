@@ -50,43 +50,33 @@ class UserViewController: UITableViewController {
         Alamofire.request(DonutServer.Constants.myUserInfoService,
                           method: .get,
                           headers: headers)
+            .validate(statusCode: 200..<300)
             .validate(contentType: ["application/json"])
             .responseJSON { [weak self] response in
                 
                 switch response.result {
                     
-                case .success(let value):
+                case .success(let data):
                     
-                    debugPrint("RESPONSE: ", value)
+                    debugPrint("SUCCESS: ", data)
                     
-                    let jsonResponse = JSON(value)
-                    
-                    if jsonResponse["id"].exists() {
-                        
-                        self?.container?.performBackgroundTask { context in
-                            let user = try? User.findOrCreateUser(with: jsonResponse, in: context)
-                            try? context.save()
-                            let userId = Int((user?.id)!)
+                    let json = JSON(data)
 
-                            DonutServer.userId = userId
-                            
-                            DispatchQueue.main.async {
-                                self?.loadUser(with: userId)
-                            }
-                            
+                    self?.container?.performBackgroundTask { context in
+                        let user = try? User.findOrCreateUser(with: json, in: context)
+                        try? context.save()
+                        
+                        let userId = Int((user?.id)!)
+                        DonutServer.userId = userId
+                        DispatchQueue.main.async {
+                            self?.loadUser(with: userId)
                         }
-                        
-                    } else {
-                        
-                        // nao peguei os dados por algum motivo
                         
                     }
                     
                 case .failure(let error):
                     
                     debugPrint("ERROR: ", error)
-                    
-                    // servidor deu erro por algum motivo
                     
                 }
                 
