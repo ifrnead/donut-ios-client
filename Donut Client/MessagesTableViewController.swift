@@ -237,7 +237,9 @@ class MessagesTableViewController: FetchedResultsTableViewController {
             
             let request: NSFetchRequest<Message> = Message.fetchRequest()
             
-            // request.predicate ...
+            request.predicate = NSPredicate(
+                format: "room = %@", room!
+            )
             
             request.sortDescriptors = [
                 NSSortDescriptor(
