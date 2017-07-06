@@ -12,14 +12,14 @@ import Foundation
 struct DonutServer {
     
     struct Constants {
-        static let serverPrefix: String = "http://10.123.1.34:3000"
+        static let serverPrefix: String = "https://donutchat.herokuapp.com"
         static let loginService: String = "\(serverPrefix)/api/auth"
         static let listUsersService: String = "\(serverPrefix)/api/users"
         static let listRoomsService: String = "\(serverPrefix)/api/rooms"
         static let myUserInfoService: String = "\(serverPrefix)/api/users/me"
         static let listMessagesService: String = "\(serverPrefix)/api/rooms/:room_id/messages"
 
-        static let actionCableEndPoint: String = "ws://10.123.1.34:3000/cable"
+        static let actionCableEndPoint: String = "https://donutchat.herokuapp.com/cable"
         static let actionCableChannelClass: String = "ChatRoomsChannel"
         
         static let suapPrefix: String = "http://suap.ifrn.edu.br"
