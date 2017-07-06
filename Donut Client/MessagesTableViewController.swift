@@ -211,19 +211,8 @@ class MessagesTableViewController: FetchedResultsTableViewController {
 
     // MARK: - UITableViewController
 
-//    override func numberOfSections(in tableView: UITableView) -> Int {
-//        return 1
-//    }
-//
-//    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return messages.count
-//    }
-
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.tableViewMessageCellIdentifier, for: indexPath)
-        
-//        let message = messages[indexPath.row]
-//        cell.textLabel?.text = message.content ?? ""
         
         if let message = fetchedResultsController?.object(at: indexPath) {
             if let content = message.content {

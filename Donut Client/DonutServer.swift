@@ -26,7 +26,6 @@ struct DonutServer {
         
         static let defaultsTokenKey: String = "tokenKey"
         static let defaultsUserIdKey: String = "userIdKey"
-
     }
     
     static var token: String? {
