@@ -192,6 +192,13 @@ class MessagesTableViewController: FetchedResultsTableViewController {
 
     }
     
+    private func setupContainerView() {
+        let containerView = ContainerView()
+        containerView.customInputView = messageInputView
+        view.addSubview(containerView)
+        containerView.becomeFirstResponder()
+    }
+    
     // MARK: - View Lifecycle
     
     override func viewWillAppear(_ animated: Bool) {
@@ -208,6 +215,8 @@ class MessagesTableViewController: FetchedResultsTableViewController {
         
         setupActionCable()
         
+        setupContainerView()
+        
 //        NotificationCenter.default.addObserver(self,
 //                                               selector: #selector(keyboardWillShow(_:)),
 //                                               name: .UIKeyboardWillShow,
@@ -218,10 +227,6 @@ class MessagesTableViewController: FetchedResultsTableViewController {
 //                                               name: .UIKeyboardWillHide,
 //                                               object: nil)
         
-        let containerView = ContainerView()
-        containerView.customInputView = messageInputView
-        view.addSubview(containerView)
-        containerView.becomeFirstResponder()
 
     }
     
