@@ -25,13 +25,15 @@ class MessagesTableViewController: FetchedResultsTableViewController {
     
     // MARK: - Outlets
     
+    @IBOutlet var messageInputView: UIView!
+    
     @IBOutlet weak var messageTextField: UITextField!
     
     // MARK: - Actions
     
-    @IBAction func send(_ sender: UIBarButtonItem) {
+    @IBAction func send(_ sender: UIButton) {
         
-        if let messageText = messageTextField.text {
+        if let messageText = messageTextField.text, messageTextField.text != "" {
             
             sendMessageWith(text: messageText)
             messageTextField.text = ""
@@ -206,8 +208,42 @@ class MessagesTableViewController: FetchedResultsTableViewController {
         
         setupActionCable()
         
+//        NotificationCenter.default.addObserver(self,
+//                                               selector: #selector(keyboardWillShow(_:)),
+//                                               name: .UIKeyboardWillShow,
+//                                               object: nil)
+//        
+//        NotificationCenter.default.addObserver(self,
+//                                               selector: #selector(keyboardWillHide(_:)),
+//                                               name: .UIKeyboardWillHide,
+//                                               object: nil)
+        
+        let containerView = ContainerView()
+        containerView.customInputView = messageInputView
+        view.addSubview(containerView)
+        containerView.becomeFirstResponder()
+
     }
     
+    // MARK: - Notifications
+    
+//    func keyboardWillShow(_ notification: Notification) {
+//        showKeyboardWithInfo(info: notification.userInfo!)
+//    }
+//    
+//    func keyboardWillHide(_ notification: Notification) {
+//        showKeyboardWithInfo(info: notification.userInfo!)
+//    }
+//    
+//    func showKeyboardWithInfo(info: Dictionary<AnyHashable, Any>) {
+//        let keyboardFrame: CGRect = info[UIKeyboardFrameEndUserInfoKey] as! CGRect
+//        let viewHeight: CGFloat = view.frame.height
+//        let targetBottomSpace: CGFloat = viewHeight - keyboardFrame.minY
+//        var contentInsets: UIEdgeInsets = self.tableView.contentInset
+//        contentInsets = UIEdgeInsetsMake(contentInsets.top, contentInsets.left, targetBottomSpace, contentInsets.right);
+//        self.tableView.contentInset = contentInsets;
+//        self.tableView.scrollIndicatorInsets = contentInsets;
+//    }
 
     // MARK: - UITableViewController
 
@@ -296,6 +332,21 @@ extension MessagesTableViewController {
     
     override func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
         return fetchedResultsController?.section(forSectionIndexTitle: title, at: index) ?? 0
+    }
+    
+}
+
+
+class ContainerView: UIView {
+
+    var customInputView: UIView?
+    
+    override var canBecomeFirstResponder: Bool {
+        return true
+    }
+    
+    override var inputAccessoryView: UIView? {
+        return customInputView
     }
     
 }
