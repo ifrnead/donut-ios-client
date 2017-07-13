@@ -32,14 +32,10 @@ class MessagesTableViewController: FetchedResultsTableViewController {
     // MARK: - Actions
     
     @IBAction func send(_ sender: UIButton) {
-        
         if let messageText = messageTextField.text, messageTextField.text != "" {
-            
             sendMessageWith(text: messageText)
             messageTextField.text = ""
-            
         }
-        
     }
     
     // MARK: - Model
@@ -158,8 +154,9 @@ class MessagesTableViewController: FetchedResultsTableViewController {
                                 _ = try? Message.findOrCreateMessage(with: jsonMessage, in: context)
                                 try? context.save()
                                 
-//                                self?.messages.append(message!)
                                 self?.tableView.reloadData()
+                                self?.scrollTableViewToBottom()
+                                
                             }
                         }
                         
@@ -199,6 +196,15 @@ class MessagesTableViewController: FetchedResultsTableViewController {
         containerView.becomeFirstResponder()
     }
     
+    private func scrollTableViewToBottom(animated: Bool = true) {
+        let lastSectionIndex = (fetchedResultsController?.sections?.count)! - 1
+        let lastRowIndex = (fetchedResultsController?.fetchedObjects?.count)! - 1
+        if lastSectionIndex >= 0, lastRowIndex >= 0 {
+            let indexPathToLastRow = IndexPath(row: lastRowIndex, section: lastSectionIndex)
+            tableView?.scrollToRow(at: indexPathToLastRow, at: .bottom, animated: animated)
+        }
+    }
+    
     // MARK: - View Lifecycle
     
     override func viewWillAppear(_ animated: Bool) {
@@ -211,44 +217,36 @@ class MessagesTableViewController: FetchedResultsTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillShow(_:)),
+                                               name: .UIKeyboardWillShow,
+                                               object: nil)
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillHide(_:)),
+                                               name: .UIKeyboardWillHide,
+                                               object: nil)
+        
         updateFetchedResultsController()
-        
         setupActionCable()
-        
         setupContainerView()
+        scrollTableViewToBottom(animated: false)
         
-//        NotificationCenter.default.addObserver(self,
-//                                               selector: #selector(keyboardWillShow(_:)),
-//                                               name: .UIKeyboardWillShow,
-//                                               object: nil)
-//        
-//        NotificationCenter.default.addObserver(self,
-//                                               selector: #selector(keyboardWillHide(_:)),
-//                                               name: .UIKeyboardWillHide,
-//                                               object: nil)
-        
-
     }
     
     // MARK: - Notifications
     
-//    func keyboardWillShow(_ notification: Notification) {
-//        showKeyboardWithInfo(info: notification.userInfo!)
-//    }
-//    
-//    func keyboardWillHide(_ notification: Notification) {
-//        showKeyboardWithInfo(info: notification.userInfo!)
-//    }
-//    
-//    func showKeyboardWithInfo(info: Dictionary<AnyHashable, Any>) {
-//        let keyboardFrame: CGRect = info[UIKeyboardFrameEndUserInfoKey] as! CGRect
-//        let viewHeight: CGFloat = view.frame.height
-//        let targetBottomSpace: CGFloat = viewHeight - keyboardFrame.minY
-//        var contentInsets: UIEdgeInsets = self.tableView.contentInset
-//        contentInsets = UIEdgeInsetsMake(contentInsets.top, contentInsets.left, targetBottomSpace, contentInsets.right);
-//        self.tableView.contentInset = contentInsets;
-//        self.tableView.scrollIndicatorInsets = contentInsets;
-//    }
+    func keyboardWillShow(_ notification: Notification) {
+        DispatchQueue.main.async {
+            self.scrollTableViewToBottom()
+        }
+    }
+    
+    func keyboardWillHide(_ notification: Notification) {
+        DispatchQueue.main.async {
+            self.scrollTableViewToBottom()
+        }
+    }
 
     // MARK: - UITableViewController
 
