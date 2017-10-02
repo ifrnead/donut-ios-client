@@ -236,13 +236,13 @@ class MessagesTableViewController: FetchedResultsTableViewController {
     
     // MARK: - Notifications
     
-    func keyboardWillShow(_ notification: Notification) {
+    @objc func keyboardWillShow(_ notification: Notification) {
         DispatchQueue.main.async {
             self.scrollTableViewToBottom()
         }
     }
     
-    func keyboardWillHide(_ notification: Notification) {
+    @objc func keyboardWillHide(_ notification: Notification) {
         DispatchQueue.main.async {
             self.scrollTableViewToBottom()
         }
