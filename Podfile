@@ -4,9 +4,8 @@ target 'Donut Client' do
 
   use_frameworks!
 
-  pod 'SwiftyJSON', '~> 3.1'
-  pod 'Alamofire', '~> 4.4'
-  pod 'GoogleAnalytics'
-  pod 'ActionCableClient'
+  pod 'SwiftyJSON', '4.0.0-alpha.1'
+  pod 'Alamofire', '~> 4.5'
+  pod 'ActionCableClient', '~> 0.2'
 
 end

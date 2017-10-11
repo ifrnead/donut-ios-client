@@ -73,16 +73,16 @@ class User: NSManagedObject {
         dateFormatter.dateFormat = "yyyy-MM-dd"
         
         if let date = dateFormatter.date(from: json["suap_token_expiration_date"].stringValue) {
-            user.suap_token_expiration_date = date as NSDate
+            user.suap_token_expiration_date = date
         }
         
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         
         if let date = dateFormatter.date(from: json["updated_at"].stringValue) {
-            user.updated_at = date as NSDate
+            user.updated_at = date
         }
         if let date = dateFormatter.date(from: json["created_at"].stringValue) {
-            user.created_at = date as NSDate
+            user.created_at = date
         }
 
         return user

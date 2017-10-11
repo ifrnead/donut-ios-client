@@ -68,10 +68,10 @@ class Room: NSManagedObject {
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         
         if let date = dateFormatter.date(from: json["updated_at"].stringValue) {
-            room.updated_at = date as NSDate
+            room.updated_at = date
         }
         if let date = dateFormatter.date(from: json["created_at"].stringValue) {
-            room.created_at = date as NSDate
+            room.created_at = date
         }
         
         return room

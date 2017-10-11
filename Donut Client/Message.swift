@@ -64,10 +64,10 @@ class Message: NSManagedObject {
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         
         if let date = dateFormatter.date(from: json["updated_at"].stringValue) {
-            message.updated_at = date as NSDate
+            message.updated_at = date
         }
         if let date = dateFormatter.date(from: json["created_at"].stringValue) {
-            message.created_at = date as NSDate
+            message.created_at = date
         }
         
         message.room = Room.findRoomById(with: json["room_id"].intValue, in: context)
